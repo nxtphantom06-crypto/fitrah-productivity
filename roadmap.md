@@ -13,4 +13,11 @@
 
 Offline support is configured and preview registration is verified disabled; published offline behavior cannot be exercised before publication.
 
+## Phase 3 — Prayer, to-do & task feature UI
+- [ ] Shared temporary feature state and tested date/filter/progress rules.
+- [ ] Interactive prayer cards, notes, date strip, history and dashboard progress.
+- [ ] To-do add/edit/delete, completion, priority, due dates, filtering and reorder/swipe actions.
+- [ ] Task list, filters/sorting, create/edit/detail screens and subtask progress.
+- [ ] Verify real-input feature journeys on desktop and mobile.
+
 Later phases: live authentication, stored prayer/task data, streak calculations, analytics and notifications are not part of these phases.
