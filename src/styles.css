@@ -237,3 +237,144 @@
 .notification-setup p { font-size: 9px; color: var(--muted-foreground); margin-top: 5px; }
 .notification-setup button { margin-left: auto; }
 @media (max-width:767px) { .auth-layout { display: block; } .auth-image { display: none; } .auth-panel { min-height: 100svh; padding: 28px 26px 22px; } .auth-content { padding: 45px 0; } .auth-content h1 { font-size: 29px; } .auth-brand { align-self: center; } .auth-footnote { font-size: 9px; } }
+@theme inline { --color-overlay:var(--overlay); }
+.feature-topline { display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:24px; flex-wrap:wrap; }
+.feature-segments { display:flex; gap:4px; padding:4px; background:var(--muted); border-radius:14px; width:fit-content; max-width:100%; }
+.feature-segments button { font-size:11px; height:34px; padding:0 16px; border-radius:10px; color:var(--muted-foreground); box-shadow:none; }
+.feature-segments button.selected { color:var(--primary); background:var(--card); }
+.feature-counter { color:var(--muted-foreground); font-size:11px; margin:14px 0; }
+.feature-fab { position:fixed; right:max(24px,calc((100vw - 1120px)/2)); bottom:28px; z-index:35; width:52px; height:52px; border-radius:18px; box-shadow:var(--shadow-soft); }
+.quick-prayer { display:flex; flex-direction:column; gap:0; height:160px; white-space:normal; box-shadow:none; transition:transform .2s; }
+.quick-prayer:hover { transform:translateY(-3px); }
+.quick-prayer.is-complete { border-color:var(--primary); }
+.quick-prayer .status svg { height:11px; width:11px; margin:0; }
+.progress-ring { position:relative; width:70px; height:70px; flex-shrink:0; }
+.progress-ring svg { width:100%; height:100%; transform:rotate(-90deg); }
+.progress-ring circle { fill:none; stroke-width:3.5; }
+.ring-track { stroke:var(--muted); }
+.ring-value { stroke:var(--primary); transition:stroke-dasharray .4s; stroke-linecap:round; }
+.progress-ring > span { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:23px; font-weight:500; }
+.progress-ring small { font-size:10px; color:var(--muted-foreground); margin-left:2px; }
+.dashboard-ring { display:flex; gap:16px; align-items:center; margin-bottom:22px; }
+.dashboard-ring h3 { font-size:12px; font-weight:500; }
+.dashboard-ring p { font-size:10px; color:var(--muted-foreground); margin-top:6px; line-height:1.6; }
+progress { appearance:none; display:block; height:6px; width:100%; border:none; border-radius:8px; overflow:hidden; background:var(--muted); color:var(--primary); }
+progress::-webkit-progress-bar { background:var(--muted); border-radius:8px; }
+progress::-webkit-progress-value { background:var(--primary); border-radius:8px; transition:width .3s; }
+progress::-moz-progress-bar { background:var(--primary); }
+.dashboard-progress { flex:1; margin:0 14px; width:auto; }
+.date-strip { display:grid; grid-template-columns:repeat(7,1fr); gap:10px; max-width:750px; margin-bottom:30px; }
+.date-strip button { height:86px; flex-direction:column; gap:8px; border-radius:14px; background:var(--card); border:1px solid var(--border); color:var(--muted-foreground); }
+.date-strip button.selected { background:var(--accent); color:var(--primary); border-color:var(--primary); }
+.date-strip span { font-size:10px; font-weight:400; }
+.date-strip strong { font-size:19px; font-weight:500; }
+.date-dot { height:4px; width:4px; background:var(--border); border-radius:100%; }
+.date-dot.filled { background:var(--primary); }
+.prayer-detail-layout { display:grid; grid-template-columns:minmax(0,750px) 1fr; gap:38px; }
+.full-prayer-list { display:flex; flex-direction:column; gap:14px; }
+.full-prayer { padding:18px 20px; min-height:0; text-align:left; }
+.full-prayer-main { display:flex; align-items:center; gap:16px; }
+.full-prayer-title { flex:1; }
+.full-prayer-title h3 { font-size:15px; }
+.full-prayer-title .arabic { margin:2px 0 0; font-size:18px; }
+.full-prayer-icon { width:44px; height:44px; display:grid; place-items:center; border-radius:13px; background:color-mix(in oklch,currentColor 7%,transparent); }
+.full-prayer svg { margin:0; }
+.full-prayer-main button svg { width:16px; height:16px; }
+.full-prayer-status { font-size:10px; }
+.prayer-note { border-top:1px solid color-mix(in oklch,currentColor 15%,transparent); margin-top:16px; padding-top:16px; }
+.prayer-note label { display:flex; gap:7px; align-items:center; font-size:11px; margin-bottom:8px; }
+.prayer-note textarea { background:color-mix(in oklch,var(--card) 70%,transparent); color:var(--foreground); font-size:12px; }
+.prayer-overview { display:flex; align-items:center; flex-direction:column; text-align:center; padding-top:20px; gap:15px; }
+.prayer-overview .progress-ring { width:125px; height:125px; }
+.prayer-overview .progress-ring > span { font-size:34px; }
+.prayer-overview h2 { font-family:var(--font-display); font-size:21px; }
+.prayer-overview p { color:var(--muted-foreground); font-size:11px; }
+.overview-percentage { font-size:12px; color:var(--primary); }
+.prayer-history-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:12px; }
+.history-day { height:95px; border:1px solid var(--border); border-radius:14px; flex-direction:column; gap:12px; background:var(--muted); }
+.history-day span { font-size:10px; color:var(--muted-foreground); }
+.history-day strong { font-size:23px; font-weight:500; }
+.history-day small { font-size:10px; }
+.heat-level-1 { background:var(--accent); }
+.heat-level-2 { background:color-mix(in oklch,var(--primary) 25%,var(--accent)); }
+.heat-level-3 { background:color-mix(in oklch,var(--primary) 50%,var(--accent)); }
+.heat-level-4 { background:color-mix(in oklch,var(--primary) 75%,var(--accent)); color:var(--primary-foreground); }
+.heat-level-5 { background:var(--primary); color:var(--primary-foreground); }
+.history-day.heat-level-4 span,.history-day.heat-level-5 span { color:inherit; }
+.todo-list { display:flex; flex-direction:column; gap:10px; }
+.todo-row { display:flex; align-items:center; gap:15px; padding:14px 18px; background:var(--card); border:1px solid var(--border); border-radius:16px; }
+.todo-title-button { display:flex; flex-direction:column; align-items:flex-start; gap:6px; height:auto; flex:1; min-width:0; padding:5px 0; white-space:normal; text-align:left; box-shadow:none; }
+.todo-title { font-size:12px; overflow-wrap:anywhere; }
+.todo-due { display:flex; align-items:center; gap:5px; color:var(--muted-foreground); font-size:10px; }
+.completed .todo-title,.subtask-row.completed > span { text-decoration:line-through; color:var(--muted-foreground); }
+.row-actions { display:flex; gap:0; }
+.row-actions button { width:28px; height:28px; color:var(--muted-foreground); }
+.row-actions button svg { width:13px; height:13px; }
+.priority-badge { padding:4px 8px; border-radius:6px; font-size:9px; font-weight:500; flex-shrink:0; }
+.priority-high { background:color-mix(in oklch,var(--destructive) 10%,var(--card)); color:var(--destructive); }
+.priority-medium { background:color-mix(in oklch,var(--gold) 13%,var(--card)); color:var(--asr-ink); }
+.priority-low { background:var(--accent); color:var(--primary); }
+.feature-sheet { background:var(--card); border-radius:24px; max-height:90svh; overflow-y:auto; width:calc(100% - 32px); max-width:500px; }
+.sheet-handle { display:none; }
+.feature-form { display:flex; flex-direction:column; gap:23px; }
+.feature-form label { display:block; font-size:11px; font-weight:500; margin-bottom:9px; }
+.feature-form input,.feature-form textarea { background:var(--card); height:44px; border-radius:12px; box-shadow:none; font-size:12px; }
+.feature-form textarea { height:100px; }
+.feature-form input[aria-invalid=true] { border-color:var(--destructive); }
+.form-columns { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.form-footer { display:flex; align-items:center; gap:8px; padding-top:18px; border-top:1px solid var(--border); }
+.task-toolbar { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+.task-search { display:flex; align-items:center; gap:9px; border:1px solid var(--border); border-radius:12px; background:var(--card); padding:0 14px; flex:1; }
+.task-search svg { color:var(--muted-foreground); }
+.task-search input { border:none; height:42px; box-shadow:none; background:transparent; font-size:12px; }
+.task-toolbar select { width:140px; font-size:11px; }
+.category-chips { display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; gap:12px; }
+.project-group { margin-bottom:30px; }
+.project-group > h2 { display:flex; align-items:center; gap:8px; color:var(--muted-foreground); font-size:11px; font-weight:500; margin-bottom:14px; }
+.task-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:17px; }
+.task-card { padding:19px; background:var(--card); border:1px solid var(--border); border-radius:18px; min-height:245px; }
+.task-card-link { display:block; color:inherit; text-decoration:none; margin:10px 0 17px; }
+.task-card h3 { font-size:15px; font-weight:500; overflow-wrap:anywhere; }
+.task-card-link p { font-size:11px; color:var(--muted-foreground); line-height:1.8; margin-top:9px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.task-meta { display:flex; justify-content:space-between; gap:10px; align-items:center; font-size:9px; color:var(--muted-foreground); }
+.task-status { font-size:10px; padding:5px 8px; border-radius:6px; background:var(--muted); color:var(--muted-foreground); }
+.status-in-progress { background:var(--secondary); color:var(--asr-ink); }
+.status-completed { background:var(--accent); color:var(--primary); }
+.subtask-summary { margin:18px 0; }
+.subtask-summary > div { display:flex; justify-content:space-between; font-size:9px; color:var(--muted-foreground); margin-bottom:8px; }
+.task-card-footer { display:flex; align-items:center; justify-content:space-between; border-top:1px solid var(--border); padding-top:10px; margin-top:17px; }
+.task-card-footer > span { display:flex; align-items:center; gap:5px; font-size:9px; color:var(--muted-foreground); }
+.editor-heading { display:flex; align-items:center; gap:18px; margin-bottom:30px; }
+.editor-heading h1 { font-family:var(--font-display); font-size:28px; }
+.task-editor-form { max-width:720px; margin:auto; }
+.editor-subtasks { padding-top:20px; border-top:1px solid var(--border); }
+.editor-subtasks h2 { font-family:var(--font-display); font-size:20px; margin-bottom:16px; }
+.subtask-row { display:flex!important; align-items:center; gap:13px; margin:0!important; border-bottom:1px solid var(--border); min-height:54px; padding:10px 0; }
+.subtask-row > span { flex:1; font-size:12px; overflow-wrap:anywhere; }
+.detail-back { display:flex; justify-content:space-between; margin-bottom:35px; }
+.task-detail { max-width:720px; margin:auto; }
+.task-detail > h1 { font-family:var(--font-display); font-size:34px; line-height:1.4; margin:20px 0; overflow-wrap:anywhere; }
+.detail-metadata { display:flex; gap:20px; color:var(--muted-foreground); font-size:11px; flex-wrap:wrap; }
+.detail-metadata span { display:flex; align-items:center; gap:6px; }
+.detail-description { font-size:13px; line-height:2; color:var(--muted-foreground); white-space:pre-wrap; overflow-wrap:anywhere; margin:30px 0; }
+.detail-subtasks { padding:24px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+.detail-subtasks progress { margin-bottom:15px; }
+.detail-bottom { display:flex; justify-content:space-between; align-items:center; margin-top:24px; }
+.detail-bottom > span { font-size:11px; color:var(--muted-foreground); }
+.detail-timestamps { color:var(--muted-foreground); font-size:9px; margin-top:25px; }
+@media(max-width:1000px) { .task-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .prayer-detail-layout { grid-template-columns:minmax(0,1fr) 200px; gap:24px; } }
+@media(max-width:767px) {
+ .feature-topline { gap:16px; } .feature-topline > .feature-segments { width:100%; } .feature-topline > button { margin-left:auto; } .feature-segments button { padding:0 12px; font-size:10px; flex:1; }
+ .feature-fab { bottom:86px; right:20px; } .quick-prayer { height:143px; } .quick-prayer .status svg { width:9px; height:9px; }
+ .date-strip { gap:5px; } .date-strip button { height:77px; padding:7px 0; } .date-strip span { font-size:9px; } .date-strip strong { font-size:17px; }
+ .prayer-detail-layout { display:flex; flex-direction:column-reverse; gap:22px; } .prayer-overview { padding:0; flex-direction:row; flex-wrap:wrap; text-align:left; gap:12px; } .prayer-overview .progress-ring { height:65px; width:65px; } .prayer-overview .progress-ring > span { font-size:23px; } .prayer-overview h2 { font-size:18px; } .prayer-overview p { font-size:10px; } .overview-percentage { margin-left:auto; }
+ .full-prayer { padding:16px 13px; } .full-prayer-main { gap:9px; } .full-prayer-main > button { width:30px; height:30px; } .full-prayer-icon { width:35px; height:35px; } .full-prayer-title h3 { font-size:13px; } .full-prayer-status { font-size:9px; }
+ .prayer-history-grid { grid-template-columns:repeat(5,minmax(0,1fr)); gap:7px; } .history-day { height:78px; padding:8px 2px; } .history-day span { font-size:9px; }
+ .todo-row { padding:13px 12px; gap:10px; flex-wrap:wrap; } .todo-title-button { min-width:140px; } .row-actions { width:100%; justify-content:flex-end; border-top:1px solid var(--border); padding-top:7px; } .row-actions button { width:32px; }
+ .feature-sheet { top:auto; bottom:0; left:0; transform:none; width:100%; max-width:none; border-radius:24px 24px 0 0; max-height:90svh; padding-bottom:max(24px,env(safe-area-inset-bottom)); } .sheet-handle { display:block; height:4px; width:34px; border-radius:10px; background:var(--border); margin:0 auto 7px; }
+ .form-columns { gap:12px; } .form-columns .feature-segments button { padding:0 9px; } .feature-form { gap:20px; }
+ .task-grid { grid-template-columns:minmax(0,1fr); } .task-toolbar select { width:115px; padding:0 7px; } .task-search { padding:0 9px; min-width:0; } .task-search input { min-width:0; }
+ .category-chips { gap:8px; flex-wrap:wrap; } .category-chips .feature-segments { width:100%; } .category-chips .feature-counter { margin:0; }
+ .editor-heading { gap:8px; } .editor-heading h1 { font-size:24px; } .editor-heading > button { padding-left:0; font-size:11px; }
+ .task-detail > h1 { font-size:28px; } .task-editor-form .form-columns { grid-template-columns:minmax(0,1fr); } .task-editor-form .feature-segments { width:100%; }
+}
