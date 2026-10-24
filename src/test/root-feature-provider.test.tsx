@@ -15,7 +15,7 @@ function FeatureConsumer() {
   const { todos, saveTodo } = useFeatures();
   return <>
     <output aria-label="Todo count">{todos.length}</output>
-    <button onClick={() => saveTodo({ id: 'root-test', title: 'Read a chapter', priority: 'Medium', completed: false })}>Add todo</button>
+    <button onClick={() => saveTodo({ id: 'root-test', title: 'Read a chapter', priority: 'Medium', due: '', time: '', completed: false })}>Add todo</button>
   </>;
 }
 
