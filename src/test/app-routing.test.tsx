@@ -1,6 +1,8 @@
 import { QueryClient } from "@tanstack/react-query";
 import { createRouter, rootRouteId } from "@tanstack/react-router";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
+
+vi.mock('@/lib/pwa/register', () => ({ initializePwa: vi.fn() }));
 
 import { routeTree } from "@/routeTree.gen";
 
@@ -13,5 +15,9 @@ describe("App routing", () => {
     const matches = router.matchRoutes("/");
 
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
+  });
+  it.each(['/dashboard', '/prayers', '/tasks', '/todos', '/progress', '/profile', '/splash', '/onboarding', '/signup', '/login', '/forgot-password', '/setup'])('matches %s', (path) => {
+    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+    expect(router.matchRoutes(path).at(-1)?.routeId).toBe(path);
   });
 });
