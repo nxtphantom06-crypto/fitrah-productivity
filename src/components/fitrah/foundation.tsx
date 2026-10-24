@@ -4,7 +4,6 @@ import { BarChart3, CheckSquare, Home, Moon, User, Sun, Sparkles } from 'lucide-
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { initializePwa } from '@/lib/pwa/register';
-import { FeatureProvider } from './feature-store';
 
 const ThemeContext = createContext({ dark: false, setDark: (_dark: boolean) => {} });
 export const useTheme = () => useContext(ThemeContext);
@@ -13,7 +12,7 @@ export function FoundationProvider({ children }: { children: ReactNode }) {
  useEffect(() => { setDarkState(localStorage.getItem('fitrah-theme') === 'dark'); void initializePwa(); }, []);
  useEffect(() => { document.documentElement.classList.toggle('dark', dark); }, [dark]);
  const setDark = (value: boolean) => { setDarkState(value); localStorage.setItem('fitrah-theme', value ? 'dark' : 'light'); };
- return <ThemeContext.Provider value={{ dark, setDark }}><TooltipProvider delayDuration={200}><FeatureProvider>{children}</FeatureProvider></TooltipProvider></ThemeContext.Provider>;
+ return <ThemeContext.Provider value={{ dark, setDark }}><TooltipProvider delayDuration={200}>{children}</TooltipProvider></ThemeContext.Provider>;
 }
 export function StarMark({ className = '' }: { className?: string }) {
  return <svg viewBox="0 0 40 40" width="35" height="35" fill="none" aria-hidden="true" className={className}><path d="M20 3 25 10 33 7 30 15 37 20 30 25 33 33 25 30 20 37 15 30 7 33 10 25 3 20 10 15 7 7 15 10Z" stroke="currentColor" strokeWidth="1.5"/><path d="m20 11 9 9-9 9-9-9Z" stroke="currentColor" strokeWidth="1.3"/><path d="m20 16 4 4-4 4-4-4Z" fill="currentColor"/></svg>;
