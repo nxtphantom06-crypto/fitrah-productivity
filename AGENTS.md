@@ -8,3 +8,8 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep TanStack Start file-based routes and the root Outlet; shared Fitrah providers wrap the Outlet so every screen uses the same theme.
+- Keep UI-only phase screens separate from live authentication and persisted feature logic; static screens must never imply a successful account operation.
+- Centralize Fitrah styling in semantic CSS tokens and shared primitives so light/dark appearance remains consistent.
+- Register offline support only through the guarded client module; generate the service worker with vite-plugin-pwa into dist/client, never register in preview/dev, and use NetworkFirst for navigation.

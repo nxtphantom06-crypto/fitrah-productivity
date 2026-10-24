@@ -1,0 +1,16 @@
+{
+  "id": "/",
+  "name": "Fitrah — Align your day with purpose",
+  "short_name": "Fitrah",
+  "description": "Faith and intention, woven into your everyday.",
+  "start_url": "/dashboard",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#1A6B5A",
+  "background_color": "#FAFAF7",
+  "icons": [
+    { "src": "/icons/fitrah-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/fitrah-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
