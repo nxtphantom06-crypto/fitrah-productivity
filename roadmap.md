@@ -5,4 +5,10 @@
 - [ ] Configure guarded PWA support, icons and metadata.
 - [ ] Verify navigation, theme switching, mobile layout and PWA guards.
 
-Later phases: authentication, stored prayer/task data, streak calculations, analytics and notifications are not part of Phase 1.
+## Phase 2 — Auth, onboarding & static UI
+- [ ] Add splash and three-step onboarding.
+- [ ] Add sign-up, login and forgot-password screens with local validation and honest static states.
+- [ ] Add profile setup with avatar preview, timezone and prayer-language preferences.
+- [ ] Verify onboarding navigation and form validation.
+
+Later phases: live authentication, stored prayer/task data, streak calculations, analytics and notifications are not part of these phases.
