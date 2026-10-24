@@ -22,6 +22,9 @@ import { Route as SignupRouteImport } from './routes/signup'
 import { Route as SplashRouteImport } from './routes/splash'
 import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as TodosRouteImport } from './routes/todos'
+import { Route as TasksIdRouteImport } from './routes/tasks_.$id'
+import { Route as TasksNewRouteImport } from './routes/tasks_.new'
+import { Route as TasksIdEditRouteImport } from './routes/tasks_.$id_.edit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -88,6 +91,21 @@ const TodosRoute = TodosRouteImport.update({
   path: '/todos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TasksIdRoute = TasksIdRouteImport.update({
+  id: '/tasks_/$id',
+  path: '/tasks/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TasksNewRoute = TasksNewRouteImport.update({
+  id: '/tasks_/new',
+  path: '/tasks/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TasksIdEditRoute = TasksIdEditRouteImport.update({
+  id: '/tasks_/$id_/edit',
+  path: '/tasks/$id/edit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -103,6 +121,9 @@ export interface FileRoutesByFullPath {
   '/splash': typeof SplashRoute
   '/tasks': typeof TasksRoute
   '/todos': typeof TodosRoute
+  '/tasks/$id': typeof TasksIdRoute
+  '/tasks/new': typeof TasksNewRoute
+  '/tasks/$id/edit': typeof TasksIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -118,6 +139,9 @@ export interface FileRoutesByTo {
   '/splash': typeof SplashRoute
   '/tasks': typeof TasksRoute
   '/todos': typeof TodosRoute
+  '/tasks/$id': typeof TasksIdRoute
+  '/tasks/new': typeof TasksNewRoute
+  '/tasks/$id/edit': typeof TasksIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -134,6 +158,9 @@ export interface FileRoutesById {
   '/splash': typeof SplashRoute
   '/tasks': typeof TasksRoute
   '/todos': typeof TodosRoute
+  '/tasks_/$id': typeof TasksIdRoute
+  '/tasks_/new': typeof TasksNewRoute
+  '/tasks_/$id_/edit': typeof TasksIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -151,6 +178,9 @@ export interface FileRouteTypes {
     | '/splash'
     | '/tasks'
     | '/todos'
+    | '/tasks/$id'
+    | '/tasks/new'
+    | '/tasks/$id/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -166,6 +196,9 @@ export interface FileRouteTypes {
     | '/splash'
     | '/tasks'
     | '/todos'
+    | '/tasks/$id'
+    | '/tasks/new'
+    | '/tasks/$id/edit'
   id:
     | '__root__'
     | '/'
@@ -181,6 +214,9 @@ export interface FileRouteTypes {
     | '/splash'
     | '/tasks'
     | '/todos'
+    | '/tasks_/$id'
+    | '/tasks_/new'
+    | '/tasks_/$id_/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -197,6 +233,9 @@ export interface RootRouteChildren {
   SplashRoute: typeof SplashRoute
   TasksRoute: typeof TasksRoute
   TodosRoute: typeof TodosRoute
+  TasksIdRoute: typeof TasksIdRoute
+  TasksNewRoute: typeof TasksNewRoute
+  TasksIdEditRoute: typeof TasksIdEditRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -292,6 +331,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TodosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tasks_/$id': {
+      id: '/tasks_/$id'
+      path: '/tasks/$id'
+      fullPath: '/tasks/$id'
+      preLoaderRoute: typeof TasksIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tasks_/new': {
+      id: '/tasks_/new'
+      path: '/tasks/new'
+      fullPath: '/tasks/new'
+      preLoaderRoute: typeof TasksNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tasks_/$id_/edit': {
+      id: '/tasks_/$id_/edit'
+      path: '/tasks/$id/edit'
+      fullPath: '/tasks/$id/edit'
+      preLoaderRoute: typeof TasksIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -309,6 +369,9 @@ const rootRouteChildren: RootRouteChildren = {
   SplashRoute: SplashRoute,
   TasksRoute: TasksRoute,
   TodosRoute: TodosRoute,
+  TasksIdRoute: TasksIdRoute,
+  TasksNewRoute: TasksNewRoute,
+  TasksIdEditRoute: TasksIdEditRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

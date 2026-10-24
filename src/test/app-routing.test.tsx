@@ -20,4 +20,14 @@ describe("App routing", () => {
     const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
     expect(router.matchRoutes(path).at(-1)?.routeId).toBe(path);
   });
+  it.each([
+    ['/tasks/new', '/tasks_/new'],
+    ['/tasks/example', '/tasks_/$id'],
+    ['/tasks/example/edit', '/tasks_/$id_/edit'],
+  ])('renders independent task content for %s', (path, routeId) => {
+    const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
+    const matches = router.matchRoutes(path);
+    expect(matches.at(-1)?.routeId).toBe(routeId);
+    expect(matches.some(match => match.routeId === '/tasks')).toBe(false);
+  });
 });

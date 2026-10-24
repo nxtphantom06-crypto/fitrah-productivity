@@ -11,5 +11,7 @@
 
 - Keep TanStack Start file-based routes and the root Outlet; shared Fitrah providers wrap the Outlet so every screen uses the same theme.
 - Keep UI-only phase screens separate from live authentication and persisted feature logic; static screens must never imply a successful account operation.
+- Keep Phase 3 prayer/to-do/task state in a root-scoped React provider, not browser storage; this shares preview changes across routes without adding persistence before the data phase.
+- Use unnested task content routes for create/detail/edit so task list and detail bodies never shadow child screens.
 - Centralize Fitrah styling in semantic CSS tokens and shared primitives so light/dark appearance remains consistent.
 - Register offline support only through the guarded client module; generate the service worker with vite-plugin-pwa into dist/client, never register in preview/dev, and use NetworkFirst for navigation.
