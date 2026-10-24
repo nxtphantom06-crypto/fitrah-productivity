@@ -13,6 +13,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { FoundationProvider } from "@/components/fitrah/foundation";
+import { FeatureProvider } from "@/components/fitrah/feature-store";
 
 function NotFoundComponent() {
   return (
@@ -124,7 +125,9 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <FoundationProvider><Outlet /></FoundationProvider>
+      <FoundationProvider>
+        <FeatureProvider><Outlet /></FeatureProvider>
+      </FoundationProvider>
     </QueryClientProvider>
   );
 }
