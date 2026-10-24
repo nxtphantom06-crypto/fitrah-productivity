@@ -371,10 +371,11 @@ progress::-moz-progress-bar { background:var(--primary); }
  .full-prayer { padding:16px 13px; } .full-prayer-main { gap:9px; } .full-prayer-main > button { width:30px; height:30px; } .full-prayer-icon { width:35px; height:35px; } .full-prayer-title h3 { font-size:13px; } .full-prayer-status { font-size:9px; }
  .prayer-history-grid { grid-template-columns:repeat(5,minmax(0,1fr)); gap:7px; } .history-day { height:78px; padding:8px 2px; } .history-day span { font-size:9px; }
  .todo-row { padding:13px 12px; gap:10px; flex-wrap:wrap; } .todo-title-button { min-width:140px; } .row-actions { width:100%; justify-content:flex-end; border-top:1px solid var(--border); padding-top:7px; } .row-actions button { width:32px; }
- .feature-sheet { top:auto; bottom:0; left:0; transform:none; translate:none; width:100%; max-width:none; border-radius:24px 24px 0 0; max-height:90svh; padding-bottom:max(24px,env(safe-area-inset-bottom)); } .sheet-handle { display:block; height:4px; width:34px; border-radius:10px; background:var(--border); margin:0 auto 7px; }
+ .feature-sheet { top:auto; bottom:0; left:0; transform:none; translate:none; animation:feature-sheet-enter .2s ease-out; width:100%; max-width:none; border-radius:24px 24px 0 0; max-height:90svh; padding-bottom:max(24px,env(safe-area-inset-bottom)); } .sheet-handle { display:block; height:4px; width:34px; border-radius:10px; background:var(--border); margin:0 auto 7px; }
  .form-columns { gap:12px; } .form-columns .feature-segments button { padding:0 9px; } .feature-form { gap:20px; }
  .task-grid { grid-template-columns:minmax(0,1fr); } .task-toolbar select { width:115px; padding:0 7px; } .task-search { padding:0 9px; min-width:0; } .task-search input { min-width:0; }
  .category-chips { gap:8px; flex-wrap:wrap; } .category-chips .feature-segments { width:100%; } .category-chips .feature-counter { margin:0; }
  .editor-heading { gap:8px; } .editor-heading h1 { font-size:24px; } .editor-heading > button { padding-left:0; font-size:11px; }
  .task-detail > h1 { font-size:28px; } .task-editor-form .form-columns { grid-template-columns:minmax(0,1fr); } .task-editor-form .feature-segments { width:100%; }
 }
+@keyframes feature-sheet-enter { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
