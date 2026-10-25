@@ -22,6 +22,7 @@ import { Route as SignupRouteImport } from './routes/signup'
 import { Route as SplashRouteImport } from './routes/splash'
 import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as TodosRouteImport } from './routes/todos'
+import { Route as SettingsNotificationsRouteImport } from './routes/settings.notifications'
 import { Route as TasksIdRouteImport } from './routes/tasks_.$id'
 import { Route as TasksNewRouteImport } from './routes/tasks_.new'
 import { Route as TasksIdEditRouteImport } from './routes/tasks_.$id_.edit'
@@ -91,6 +92,11 @@ const TodosRoute = TodosRouteImport.update({
   path: '/todos',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsNotificationsRoute = SettingsNotificationsRouteImport.update({
+  id: '/settings/notifications',
+  path: '/settings/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TasksIdRoute = TasksIdRouteImport.update({
   id: '/tasks_/$id',
   path: '/tasks/$id',
@@ -121,6 +127,7 @@ export interface FileRoutesByFullPath {
   '/splash': typeof SplashRoute
   '/tasks': typeof TasksRoute
   '/todos': typeof TodosRoute
+  '/settings/notifications': typeof SettingsNotificationsRoute
   '/tasks/$id': typeof TasksIdRoute
   '/tasks/new': typeof TasksNewRoute
   '/tasks/$id/edit': typeof TasksIdEditRoute
@@ -139,6 +146,7 @@ export interface FileRoutesByTo {
   '/splash': typeof SplashRoute
   '/tasks': typeof TasksRoute
   '/todos': typeof TodosRoute
+  '/settings/notifications': typeof SettingsNotificationsRoute
   '/tasks/$id': typeof TasksIdRoute
   '/tasks/new': typeof TasksNewRoute
   '/tasks/$id/edit': typeof TasksIdEditRoute
@@ -158,6 +166,7 @@ export interface FileRoutesById {
   '/splash': typeof SplashRoute
   '/tasks': typeof TasksRoute
   '/todos': typeof TodosRoute
+  '/settings/notifications': typeof SettingsNotificationsRoute
   '/tasks_/$id': typeof TasksIdRoute
   '/tasks_/new': typeof TasksNewRoute
   '/tasks_/$id_/edit': typeof TasksIdEditRoute
@@ -178,6 +187,7 @@ export interface FileRouteTypes {
     | '/splash'
     | '/tasks'
     | '/todos'
+    | '/settings/notifications'
     | '/tasks/$id'
     | '/tasks/new'
     | '/tasks/$id/edit'
@@ -196,6 +206,7 @@ export interface FileRouteTypes {
     | '/splash'
     | '/tasks'
     | '/todos'
+    | '/settings/notifications'
     | '/tasks/$id'
     | '/tasks/new'
     | '/tasks/$id/edit'
@@ -214,6 +225,7 @@ export interface FileRouteTypes {
     | '/splash'
     | '/tasks'
     | '/todos'
+    | '/settings/notifications'
     | '/tasks_/$id'
     | '/tasks_/new'
     | '/tasks_/$id_/edit'
@@ -233,6 +245,7 @@ export interface RootRouteChildren {
   SplashRoute: typeof SplashRoute
   TasksRoute: typeof TasksRoute
   TodosRoute: typeof TodosRoute
+  SettingsNotificationsRoute: typeof SettingsNotificationsRoute
   TasksIdRoute: typeof TasksIdRoute
   TasksNewRoute: typeof TasksNewRoute
   TasksIdEditRoute: typeof TasksIdEditRoute
@@ -331,6 +344,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TodosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/settings/notifications': {
+      id: '/settings/notifications'
+      path: '/settings/notifications'
+      fullPath: '/settings/notifications'
+      preLoaderRoute: typeof SettingsNotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/tasks_/$id': {
       id: '/tasks_/$id'
       path: '/tasks/$id'
@@ -369,6 +389,7 @@ const rootRouteChildren: RootRouteChildren = {
   SplashRoute: SplashRoute,
   TasksRoute: TasksRoute,
   TodosRoute: TodosRoute,
+  SettingsNotificationsRoute: SettingsNotificationsRoute,
   TasksIdRoute: TasksIdRoute,
   TasksNewRoute: TasksNewRoute,
   TasksIdEditRoute: TasksIdEditRoute,
