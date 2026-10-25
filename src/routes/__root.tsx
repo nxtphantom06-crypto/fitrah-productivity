@@ -14,6 +14,8 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { FoundationProvider } from "@/components/fitrah/foundation";
 import { FeatureProvider } from "@/components/fitrah/feature-store";
+import { ProfilePreviewProvider } from "@/components/fitrah/profile-preview-store";
+import { FitrahNotFound } from "@/components/fitrah/feedback-pages";
 
 function NotFoundComponent() {
   return (
@@ -101,7 +103,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   }),
   shellComponent: RootShell,
   component: RootComponent,
-  notFoundComponent: NotFoundComponent,
+  notFoundComponent: FitrahNotFound,
   errorComponent: ErrorComponent,
 });
 
@@ -126,7 +128,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <FoundationProvider>
-        <FeatureProvider><Outlet /></FeatureProvider>
+        <FeatureProvider><ProfilePreviewProvider><Outlet /></ProfilePreviewProvider></FeatureProvider>
       </FoundationProvider>
     </QueryClientProvider>
   );

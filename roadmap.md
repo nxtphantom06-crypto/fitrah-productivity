@@ -23,8 +23,13 @@ Offline support is configured and preview registration is verified disabled; pub
 Phase 3 data stays in memory across navigation and resets on page reload. Streaks remain placeholders until the streak phase.
 
 ## Phase 4 — Progress, profile, settings & 404 UI
-- [ ] Add sample analytics, month comparison and prayer heatmap.
-- [ ] Add temporary profile editing, appearance and reminder settings.
-- [ ] Add branded missing-page screen and verify Phase 4 journeys.
+- [x] Add sample analytics, month comparison and prayer heatmap.
+- [x] Add temporary profile editing, appearance and reminder settings.
+- [x] Add branded missing-page screen and verify Phase 4 journeys.
+
+## Phase 5 — Authentication
+- [ ] Connect email/password and Google sign-in.
+- [ ] Add session management, guarded screens and password recovery.
+- [ ] Verify real account journeys.
 
 Later phases: live authentication, stored prayer/task data, real streak calculations and notification delivery are not part of these phases.
