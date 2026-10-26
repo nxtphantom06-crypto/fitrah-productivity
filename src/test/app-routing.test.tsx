@@ -16,18 +16,18 @@ describe("App routing", () => {
 
     expect(matches.at(-1)?.routeId).not.toBe(rootRouteId);
   });
-  it.each(['/dashboard', '/prayers', '/tasks', '/todos', '/progress', '/profile', '/splash', '/onboarding', '/signup', '/login', '/forgot-password', '/setup'])('matches %s', (path) => {
+  it.each(['/dashboard', '/prayers', '/tasks', '/todos', '/progress', '/profile', '/splash', '/onboarding', '/signup', '/login', '/forgot-password', '/setup', '/settings/notifications', '/reset-password', '/auth'])('matches %s', (path) => {
     const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
-    expect(router.matchRoutes(path).at(-1)?.routeId).toBe(path);
+    expect(router.matchRoutes(path).at(-1)?.routeId).toBe(['/dashboard','/prayers','/tasks','/todos','/progress','/profile','/setup','/settings/notifications'].includes(path) ? `/_authenticated${path}` : path);
   });
   it.each([
-    ['/tasks/new', '/tasks_/new'],
-    ['/tasks/example', '/tasks_/$id'],
-    ['/tasks/example/edit', '/tasks_/$id_/edit'],
+    ['/tasks/new', '/_authenticated/tasks_/new'],
+    ['/tasks/example', '/_authenticated/tasks_/$id'],
+    ['/tasks/example/edit', '/_authenticated/tasks_/$id_/edit'],
   ])('renders independent task content for %s', (path, routeId) => {
     const router = createRouter({ routeTree, context: { queryClient: new QueryClient() } });
     const matches = router.matchRoutes(path);
     expect(matches.at(-1)?.routeId).toBe(routeId);
-    expect(matches.some(match => match.routeId === '/tasks')).toBe(false);
+    expect(matches.some(match => match.routeId === '/_authenticated/tasks')).toBe(false);
   });
 });
