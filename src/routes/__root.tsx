@@ -16,6 +16,8 @@ import { FoundationProvider } from "@/components/fitrah/foundation";
 import { FeatureProvider } from "@/components/fitrah/feature-store";
 import { ProfilePreviewProvider } from "@/components/fitrah/profile-preview-store";
 import { FitrahNotFound } from "@/components/fitrah/feedback-pages";
+import { AuthProvider } from "@/components/fitrah/auth-store";
+import { useAuth } from "@/components/fitrah/auth-store";
 
 function NotFoundComponent() {
   return (
@@ -127,9 +129,12 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <FoundationProvider>
-        <FeatureProvider><ProfilePreviewProvider><Outlet /></ProfilePreviewProvider></FeatureProvider>
-      </FoundationProvider>
+      <AuthProvider><FoundationProvider><AccountFeatures /></FoundationProvider></AuthProvider>
     </QueryClientProvider>
   );
+}
+
+function AccountFeatures() {
+  const { user } = useAuth();
+  return <FeatureProvider key={user?.id ?? 'signed-out'}><ProfilePreviewProvider><Outlet /></ProfilePreviewProvider></FeatureProvider>;
 }

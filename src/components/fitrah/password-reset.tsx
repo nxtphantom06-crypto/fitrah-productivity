@@ -1,0 +1,11 @@
+import { useEffect, useState } from 'react';
+import { Link } from '@tanstack/react-router';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { supabase } from '@/integrations/supabase/client';
+import { AuthLayout } from './auth-pages';
+export function PasswordResetPage() {
+ const [recovery,setRecovery]=useState(false);const [password,setPassword]=useState('');const [confirm,setConfirm]=useState('');const [notice,setNotice]=useState('');const [error,setError]=useState('');const [busy,setBusy]=useState(false);
+ useEffect(()=>{const recoveryHash=window.location.hash.includes('type=recovery');void supabase.auth.getUser().then(({data})=>setRecovery(recoveryHash&&!!data.user));},[]);
+ return <AuthLayout><h1>A fresh start.</h1><p className="auth-subtitle">Choose a new password.</p>{!recovery?<div className="mt-6"><p className="auth-notice">Open the password reset link from your email. If it has expired, request a new one.</p><Button asChild variant="link"><Link to="/forgot-password">Request a new link</Link></Button></div>:<form className="auth-form" onSubmit={async e=>{e.preventDefault();setError('');if(password.length<8){setError('Use at least 8 characters.');return;}if(password!==confirm){setError('Passwords do not match.');return;}setBusy(true);const {error}=await supabase.auth.updateUser({password});setBusy(false);if(error)setError(error.message);else {setNotice('Your password has been updated.');window.history.replaceState(null,'',window.location.pathname);}}}><div className="auth-field"><label htmlFor="reset-password">New password</label><Input id="reset-password" type="password" autoComplete="new-password" value={password} onChange={e=>setPassword(e.target.value)}/></div><div className="auth-field"><label htmlFor="reset-confirm">Confirm password</label><Input id="reset-confirm" type="password" autoComplete="new-password" value={confirm} onChange={e=>setConfirm(e.target.value)}/></div>{error&&<p role="alert" className="field-error">{error}</p>}{notice?<><p role="status" className="auth-notice">{notice}</p><Button asChild><Link to="/dashboard">Go to Dashboard</Link></Button></>:<Button type="submit" disabled={busy} loading={busy}>Update password</Button>}</form>}</AuthLayout>;
+}

@@ -10,31 +10,38 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
-import { Route as PrayersRouteImport } from './routes/prayers'
-import { Route as ProfileRouteImport } from './routes/profile'
-import { Route as ProgressRouteImport } from './routes/progress'
-import { Route as SetupRouteImport } from './routes/setup'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as SplashRouteImport } from './routes/splash'
-import { Route as TasksRouteImport } from './routes/tasks'
-import { Route as TodosRouteImport } from './routes/todos'
-import { Route as SettingsNotificationsRouteImport } from './routes/settings.notifications'
-import { Route as TasksIdRouteImport } from './routes/tasks_.$id'
-import { Route as TasksNewRouteImport } from './routes/tasks_.new'
-import { Route as TasksIdEditRouteImport } from './routes/tasks_.$id_.edit'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedPrayersRouteImport } from './routes/_authenticated/prayers'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedProgressRouteImport } from './routes/_authenticated/progress'
+import { Route as AuthenticatedSetupRouteImport } from './routes/_authenticated/setup'
+import { Route as AuthenticatedTasksRouteImport } from './routes/_authenticated/tasks'
+import { Route as AuthenticatedTodosRouteImport } from './routes/_authenticated/todos'
+import { Route as AuthenticatedSettingsNotificationsRouteImport } from './routes/_authenticated/settings.notifications'
+import { Route as AuthenticatedTasksIdRouteImport } from './routes/_authenticated/tasks_.$id'
+import { Route as AuthenticatedTasksNewRouteImport } from './routes/_authenticated/tasks_.new'
+import { Route as AuthenticatedTasksIdEditRouteImport } from './routes/_authenticated/tasks_.$id_.edit'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
@@ -52,24 +59,9 @@ const OnboardingRoute = OnboardingRouteImport.update({
   path: '/onboarding',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PrayersRoute = PrayersRouteImport.update({
-  id: '/prayers',
-  path: '/prayers',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProfileRoute = ProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProgressRoute = ProgressRouteImport.update({
-  id: '/progress',
-  path: '/progress',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SetupRoute = SetupRouteImport.update({
-  id: '/setup',
-  path: '/setup',
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SignupRoute = SignupRouteImport.update({
@@ -82,109 +74,145 @@ const SplashRoute = SplashRouteImport.update({
   path: '/splash',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TasksRoute = TasksRouteImport.update({
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPrayersRoute = AuthenticatedPrayersRouteImport.update({
+  id: '/prayers',
+  path: '/prayers',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedProgressRoute = AuthenticatedProgressRouteImport.update({
+  id: '/progress',
+  path: '/progress',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSetupRoute = AuthenticatedSetupRouteImport.update({
+  id: '/setup',
+  path: '/setup',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedTasksRoute = AuthenticatedTasksRouteImport.update({
   id: '/tasks',
   path: '/tasks',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const TodosRoute = TodosRouteImport.update({
+const AuthenticatedTodosRoute = AuthenticatedTodosRouteImport.update({
   id: '/todos',
   path: '/todos',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const SettingsNotificationsRoute = SettingsNotificationsRouteImport.update({
-  id: '/settings/notifications',
-  path: '/settings/notifications',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TasksIdRoute = TasksIdRouteImport.update({
+const AuthenticatedSettingsNotificationsRoute =
+  AuthenticatedSettingsNotificationsRouteImport.update({
+    id: '/settings/notifications',
+    path: '/settings/notifications',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedTasksIdRoute = AuthenticatedTasksIdRouteImport.update({
   id: '/tasks_/$id',
   path: '/tasks/$id',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const TasksNewRoute = TasksNewRouteImport.update({
+const AuthenticatedTasksNewRoute = AuthenticatedTasksNewRouteImport.update({
   id: '/tasks_/new',
   path: '/tasks/new',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const TasksIdEditRoute = TasksIdEditRouteImport.update({
-  id: '/tasks_/$id_/edit',
-  path: '/tasks/$id/edit',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const AuthenticatedTasksIdEditRoute =
+  AuthenticatedTasksIdEditRouteImport.update({
+    id: '/tasks_/$id_/edit',
+    path: '/tasks/$id/edit',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/dashboard': typeof DashboardRoute
+  '/auth': typeof AuthRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
-  '/prayers': typeof PrayersRoute
-  '/profile': typeof ProfileRoute
-  '/progress': typeof ProgressRoute
-  '/setup': typeof SetupRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
   '/splash': typeof SplashRoute
-  '/tasks': typeof TasksRoute
-  '/todos': typeof TodosRoute
-  '/settings/notifications': typeof SettingsNotificationsRoute
-  '/tasks/$id': typeof TasksIdRoute
-  '/tasks/new': typeof TasksNewRoute
-  '/tasks/$id/edit': typeof TasksIdEditRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/prayers': typeof AuthenticatedPrayersRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/progress': typeof AuthenticatedProgressRoute
+  '/setup': typeof AuthenticatedSetupRoute
+  '/tasks': typeof AuthenticatedTasksRoute
+  '/todos': typeof AuthenticatedTodosRoute
+  '/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
+  '/tasks/$id': typeof AuthenticatedTasksIdRoute
+  '/tasks/new': typeof AuthenticatedTasksNewRoute
+  '/tasks/$id/edit': typeof AuthenticatedTasksIdEditRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/dashboard': typeof DashboardRoute
+  '/auth': typeof AuthRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
-  '/prayers': typeof PrayersRoute
-  '/profile': typeof ProfileRoute
-  '/progress': typeof ProgressRoute
-  '/setup': typeof SetupRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
   '/splash': typeof SplashRoute
-  '/tasks': typeof TasksRoute
-  '/todos': typeof TodosRoute
-  '/settings/notifications': typeof SettingsNotificationsRoute
-  '/tasks/$id': typeof TasksIdRoute
-  '/tasks/new': typeof TasksNewRoute
-  '/tasks/$id/edit': typeof TasksIdEditRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/prayers': typeof AuthenticatedPrayersRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/progress': typeof AuthenticatedProgressRoute
+  '/setup': typeof AuthenticatedSetupRoute
+  '/tasks': typeof AuthenticatedTasksRoute
+  '/todos': typeof AuthenticatedTodosRoute
+  '/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
+  '/tasks/$id': typeof AuthenticatedTasksIdRoute
+  '/tasks/new': typeof AuthenticatedTasksNewRoute
+  '/tasks/$id/edit': typeof AuthenticatedTasksIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/dashboard': typeof DashboardRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/onboarding': typeof OnboardingRoute
-  '/prayers': typeof PrayersRoute
-  '/profile': typeof ProfileRoute
-  '/progress': typeof ProgressRoute
-  '/setup': typeof SetupRoute
+  '/reset-password': typeof ResetPasswordRoute
   '/signup': typeof SignupRoute
   '/splash': typeof SplashRoute
-  '/tasks': typeof TasksRoute
-  '/todos': typeof TodosRoute
-  '/settings/notifications': typeof SettingsNotificationsRoute
-  '/tasks_/$id': typeof TasksIdRoute
-  '/tasks_/new': typeof TasksNewRoute
-  '/tasks_/$id_/edit': typeof TasksIdEditRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/prayers': typeof AuthenticatedPrayersRoute
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/_authenticated/progress': typeof AuthenticatedProgressRoute
+  '/_authenticated/setup': typeof AuthenticatedSetupRoute
+  '/_authenticated/tasks': typeof AuthenticatedTasksRoute
+  '/_authenticated/todos': typeof AuthenticatedTodosRoute
+  '/_authenticated/settings/notifications': typeof AuthenticatedSettingsNotificationsRoute
+  '/_authenticated/tasks_/$id': typeof AuthenticatedTasksIdRoute
+  '/_authenticated/tasks_/new': typeof AuthenticatedTasksNewRoute
+  '/_authenticated/tasks_/$id_/edit': typeof AuthenticatedTasksIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/dashboard'
+    | '/auth'
     | '/forgot-password'
     | '/login'
     | '/onboarding'
+    | '/reset-password'
+    | '/signup'
+    | '/splash'
+    | '/dashboard'
     | '/prayers'
     | '/profile'
     | '/progress'
     | '/setup'
-    | '/signup'
-    | '/splash'
     | '/tasks'
     | '/todos'
     | '/settings/notifications'
@@ -194,16 +222,18 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/dashboard'
+    | '/auth'
     | '/forgot-password'
     | '/login'
     | '/onboarding'
+    | '/reset-password'
+    | '/signup'
+    | '/splash'
+    | '/dashboard'
     | '/prayers'
     | '/profile'
     | '/progress'
     | '/setup'
-    | '/signup'
-    | '/splash'
     | '/tasks'
     | '/todos'
     | '/settings/notifications'
@@ -213,42 +243,37 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/dashboard'
+    | '/_authenticated'
+    | '/auth'
     | '/forgot-password'
     | '/login'
     | '/onboarding'
-    | '/prayers'
-    | '/profile'
-    | '/progress'
-    | '/setup'
+    | '/reset-password'
     | '/signup'
     | '/splash'
-    | '/tasks'
-    | '/todos'
-    | '/settings/notifications'
-    | '/tasks_/$id'
-    | '/tasks_/new'
-    | '/tasks_/$id_/edit'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/prayers'
+    | '/_authenticated/profile'
+    | '/_authenticated/progress'
+    | '/_authenticated/setup'
+    | '/_authenticated/tasks'
+    | '/_authenticated/todos'
+    | '/_authenticated/settings/notifications'
+    | '/_authenticated/tasks_/$id'
+    | '/_authenticated/tasks_/new'
+    | '/_authenticated/tasks_/$id_/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  DashboardRoute: typeof DashboardRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
   OnboardingRoute: typeof OnboardingRoute
-  PrayersRoute: typeof PrayersRoute
-  ProfileRoute: typeof ProfileRoute
-  ProgressRoute: typeof ProgressRoute
-  SetupRoute: typeof SetupRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
   SignupRoute: typeof SignupRoute
   SplashRoute: typeof SplashRoute
-  TasksRoute: typeof TasksRoute
-  TodosRoute: typeof TodosRoute
-  SettingsNotificationsRoute: typeof SettingsNotificationsRoute
-  TasksIdRoute: typeof TasksIdRoute
-  TasksNewRoute: typeof TasksNewRoute
-  TasksIdEditRoute: typeof TasksIdEditRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -260,11 +285,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/forgot-password': {
@@ -288,32 +320,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OnboardingRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/prayers': {
-      id: '/prayers'
-      path: '/prayers'
-      fullPath: '/prayers'
-      preLoaderRoute: typeof PrayersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/profile': {
-      id: '/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof ProfileRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/progress': {
-      id: '/progress'
-      path: '/progress'
-      fullPath: '/progress'
-      preLoaderRoute: typeof ProgressRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/setup': {
-      id: '/setup'
-      path: '/setup'
-      fullPath: '/setup'
-      preLoaderRoute: typeof SetupRouteImport
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/signup': {
@@ -330,69 +341,128 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SplashRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/tasks': {
-      id: '/tasks'
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/prayers': {
+      id: '/_authenticated/prayers'
+      path: '/prayers'
+      fullPath: '/prayers'
+      preLoaderRoute: typeof AuthenticatedPrayersRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/progress': {
+      id: '/_authenticated/progress'
+      path: '/progress'
+      fullPath: '/progress'
+      preLoaderRoute: typeof AuthenticatedProgressRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/setup': {
+      id: '/_authenticated/setup'
+      path: '/setup'
+      fullPath: '/setup'
+      preLoaderRoute: typeof AuthenticatedSetupRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/tasks': {
+      id: '/_authenticated/tasks'
       path: '/tasks'
       fullPath: '/tasks'
-      preLoaderRoute: typeof TasksRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedTasksRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/todos': {
-      id: '/todos'
+    '/_authenticated/todos': {
+      id: '/_authenticated/todos'
       path: '/todos'
       fullPath: '/todos'
-      preLoaderRoute: typeof TodosRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedTodosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/settings/notifications': {
-      id: '/settings/notifications'
+    '/_authenticated/settings/notifications': {
+      id: '/_authenticated/settings/notifications'
       path: '/settings/notifications'
       fullPath: '/settings/notifications'
-      preLoaderRoute: typeof SettingsNotificationsRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedSettingsNotificationsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/tasks_/$id': {
-      id: '/tasks_/$id'
+    '/_authenticated/tasks_/$id': {
+      id: '/_authenticated/tasks_/$id'
       path: '/tasks/$id'
       fullPath: '/tasks/$id'
-      preLoaderRoute: typeof TasksIdRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedTasksIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/tasks_/new': {
-      id: '/tasks_/new'
+    '/_authenticated/tasks_/new': {
+      id: '/_authenticated/tasks_/new'
       path: '/tasks/new'
       fullPath: '/tasks/new'
-      preLoaderRoute: typeof TasksNewRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedTasksNewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/tasks_/$id_/edit': {
-      id: '/tasks_/$id_/edit'
+    '/_authenticated/tasks_/$id_/edit': {
+      id: '/_authenticated/tasks_/$id_/edit'
       path: '/tasks/$id/edit'
       fullPath: '/tasks/$id/edit'
-      preLoaderRoute: typeof TasksIdEditRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedTasksIdEditRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedPrayersRoute: typeof AuthenticatedPrayersRoute
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+  AuthenticatedProgressRoute: typeof AuthenticatedProgressRoute
+  AuthenticatedSetupRoute: typeof AuthenticatedSetupRoute
+  AuthenticatedTasksRoute: typeof AuthenticatedTasksRoute
+  AuthenticatedTodosRoute: typeof AuthenticatedTodosRoute
+  AuthenticatedSettingsNotificationsRoute: typeof AuthenticatedSettingsNotificationsRoute
+  AuthenticatedTasksIdRoute: typeof AuthenticatedTasksIdRoute
+  AuthenticatedTasksNewRoute: typeof AuthenticatedTasksNewRoute
+  AuthenticatedTasksIdEditRoute: typeof AuthenticatedTasksIdEditRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedPrayersRoute: AuthenticatedPrayersRoute,
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+  AuthenticatedProgressRoute: AuthenticatedProgressRoute,
+  AuthenticatedSetupRoute: AuthenticatedSetupRoute,
+  AuthenticatedTasksRoute: AuthenticatedTasksRoute,
+  AuthenticatedTodosRoute: AuthenticatedTodosRoute,
+  AuthenticatedSettingsNotificationsRoute:
+    AuthenticatedSettingsNotificationsRoute,
+  AuthenticatedTasksIdRoute: AuthenticatedTasksIdRoute,
+  AuthenticatedTasksNewRoute: AuthenticatedTasksNewRoute,
+  AuthenticatedTasksIdEditRoute: AuthenticatedTasksIdEditRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  DashboardRoute: DashboardRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
   OnboardingRoute: OnboardingRoute,
-  PrayersRoute: PrayersRoute,
-  ProfileRoute: ProfileRoute,
-  ProgressRoute: ProgressRoute,
-  SetupRoute: SetupRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
   SignupRoute: SignupRoute,
   SplashRoute: SplashRoute,
-  TasksRoute: TasksRoute,
-  TodosRoute: TodosRoute,
-  SettingsNotificationsRoute: SettingsNotificationsRoute,
-  TasksIdRoute: TasksIdRoute,
-  TasksNewRoute: TasksNewRoute,
-  TasksIdEditRoute: TasksIdEditRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
