@@ -14,5 +14,6 @@
 - Mount FeatureProvider explicitly in the root route around Outlet, separate from FoundationProvider, and keep Phase 3 state in memory; this makes every route's shared prayer/to-do/task dependency explicit without adding persistence before the data phase.
 - Use unnested task content routes for create/detail/edit so task list and detail bodies never shadow child screens.
 - Centralize Fitrah styling in semantic CSS tokens and shared primitives so light/dark appearance remains consistent.
-- Keep Phase 4 analytics in a labelled sample-data module and profile/reminder drafts in a root-scoped in-memory provider; UI previews must not imply personal history, persisted account changes or notification delivery.
+- Keep analytics in a labelled sample-data module and reminder drafts in memory until their data phase; saved account profiles use owner-scoped Cloud access and private avatar storage.
+- Keep signed-in screens under the managed client-only authenticated layout, with a single root auth subscription and identity-keyed feature state; sign-out clears cached and temporary private state before replacing navigation with login.
 - Register offline support only through the guarded client module; generate the service worker with vite-plugin-pwa into dist/client, never register in preview/dev, and use NetworkFirst for navigation.
