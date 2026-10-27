@@ -34,4 +34,9 @@ Phase 3 data stays in memory across navigation and resets on page reload. Streak
 
 Google is enabled and connected; its external account-consent round trip and actual email delivery remain unverified.
 
-Later phases: stored prayer/task data, real streak calculations, account deletion and notification delivery are not part of these phases.
+## Phase 6 — Database & core data layer
+- [ ] Create private prayer, to-do, task and subtask storage with validated owner-only access.
+- [ ] Connect existing screens to authenticated reads and reliable saved changes.
+- [ ] Verify reloads, task deep links, prayer dates, reorder and account isolation.
+
+Later phases: real streak calculations, account deletion and notification delivery remain out of scope.
