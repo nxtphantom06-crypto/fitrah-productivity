@@ -10,7 +10,7 @@ export function AuthEntry() {
   const { user, ready } = useAuth(); const navigate = useNavigate();
   useEffect(() => {
     if (!ready) return;
-    if (window.location.hash.includes('type=recovery')) { void navigate({ to: '/reset-password' }); return; }
+    if (window.location.hash.includes('type=recovery')) { void navigate({ to: '/reset-password', hash: window.location.hash.slice(1) }); return; }
     if (!user) { void navigate({ to: '/onboarding', replace: true }); return; }
     let active = true;
     const destination = safeReturnPath(sessionStorage.getItem('fitrah-return'));
