@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      prayers: {
+        Row: {
+          date: string
+          id: string
+          name: string
+          note: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          date: string
+          id?: string
+          name: string
+          note?: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          date?: string
+          id?: string
+          name?: string
+          note?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_path: string
@@ -44,12 +74,135 @@ export type Database = {
         }
         Relationships: []
       }
+      subtasks: {
+        Row: {
+          completed: boolean
+          id: string
+          position: number
+          task_id: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean
+          id?: string
+          position?: number
+          task_id: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          completed?: boolean
+          id?: string
+          position?: number
+          task_id?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subtasks_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tasks: {
+        Row: {
+          category: string
+          completed_at: string | null
+          created_at: string
+          description: string
+          due: string | null
+          id: string
+          priority: string
+          project: string
+          status: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category?: string
+          completed_at?: string | null
+          created_at?: string
+          description?: string
+          due?: string | null
+          id?: string
+          priority?: string
+          project?: string
+          status?: string
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          completed_at?: string | null
+          created_at?: string
+          description?: string
+          due?: string | null
+          id?: string
+          priority?: string
+          project?: string
+          status?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      todos: {
+        Row: {
+          completed: boolean
+          completed_at: string | null
+          created_at: string
+          due: string | null
+          due_time: string | null
+          id: string
+          position: number
+          priority: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean
+          completed_at?: string | null
+          created_at?: string
+          due?: string | null
+          due_time?: string | null
+          id?: string
+          position?: number
+          priority?: string
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed?: boolean
+          completed_at?: string | null
+          created_at?: string
+          due?: string | null
+          due_time?: string | null
+          id?: string
+          position?: number
+          priority?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      reorder_fitrah_todos: { Args: { ids: string[] }; Returns: undefined }
+      save_fitrah_task: { Args: { payload: Json }; Returns: string }
     }
     Enums: {
       [_ in never]: never
