@@ -28,8 +28,10 @@ Phase 3 data stays in memory across navigation and resets on page reload. Streak
 - [x] Add branded missing-page screen and verify Phase 4 journeys.
 
 ## Phase 5 — Authentication
-- [ ] Connect email/password and Google sign-in.
-- [ ] Add session management, guarded screens and password recovery.
-- [ ] Verify real account journeys.
+- [x] Connect email/password and Google sign-in.
+- [x] Add session management, guarded screens and password recovery.
+- [x] Verify real email sign-in, saved profile/avatar, session reload, password change/recovery and logout with a temporary account.
 
-Later phases: live authentication, stored prayer/task data, real streak calculations and notification delivery are not part of these phases.
+Google is enabled and connected; its external account-consent round trip and actual email delivery remain unverified.
+
+Later phases: stored prayer/task data, real streak calculations, account deletion and notification delivery are not part of these phases.
