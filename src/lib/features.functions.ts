@@ -20,8 +20,11 @@ export const writePrayer = createServerFn({method:'POST'}).middleware([requireSu
   const {supabase,userId}=context;
   const profile=await supabase.from('profiles').select('timezone').eq('id',userId).single();
   if(profile.error||data.date!==dateInTimezone(new Date(),profile.data.timezone)) throw new Error('Only today’s prayers can be changed.');
-  // Updating only the supplied columns preserves notes during status changes.
-  const {error}=await supabase.from('prayers').upsert({user_id:userId,date:data.date,name:data.name,...data.patch},{onConflict:'user_id,date,name'});
+  const existing=await supabase.from('prayers').select('id').eq('user_id',userId).eq('date',data.date).eq('name',data.name).maybeSingle();
+  if(existing.error)throw new Error('Your prayer could not be saved.');
+  const {error}=existing.data
+    ?await supabase.from('prayers').update(data.patch).eq('id',existing.data.id).eq('user_id',userId)
+    :await supabase.from('prayers').insert({user_id:userId,date:data.date,name:data.name,...data.patch});
   if(error) throw new Error('Your prayer could not be saved. Please try again.');
   return true;
 });
