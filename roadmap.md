@@ -20,7 +20,7 @@ Offline support is configured and preview registration is verified disabled; pub
 - [x] Task list, filters/sorting, create/edit/detail screens and subtask progress.
 - [x] Verify real-input feature journeys on desktop and mobile.
 
-Phase 3 data stays in memory across navigation and resets on page reload. Streaks remain placeholders until the streak phase.
+Phase 3 originally used temporary data; Phase 6 replaces it with saved account activity. Streaks remain placeholders until the streak phase.
 
 ## Phase 4 — Progress, profile, settings & 404 UI
 - [x] Add sample analytics, month comparison and prayer heatmap.
@@ -35,8 +35,9 @@ Phase 3 data stays in memory across navigation and resets on page reload. Streak
 Google is enabled and connected; its external account-consent round trip and actual email delivery remain unverified.
 
 ## Phase 6 — Database & core data layer
-- [ ] Create private prayer, to-do, task and subtask storage with validated owner-only access.
-- [ ] Connect existing screens to authenticated reads and reliable saved changes.
-- [ ] Verify reloads, task deep links, prayer dates, reorder and account isolation.
+- [x] Create private prayer, to-do, task and subtask storage with validated owner-only access.
+- [x] Connect existing screens to authenticated reads and reliable saved changes.
+- [x] Verify automated date/input/save-failure tests, installed policies/grants and signed-out routing.
+- [ ] Verify signed-in reloads, task deep links, reorder and account isolation in the UI — blocked until the user signs in or selects an existing account for testing.
 
 Later phases: real streak calculations, account deletion and notification delivery remain out of scope.
