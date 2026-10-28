@@ -1,14 +1,25 @@
-import { createContext,useContext,useState,useEffect,type ReactNode } from 'react';
-import { dateKey,countPrayers,moveItem,canEditPrayer,type PrayerName,type PrayerRecord,type Todo,type Task } from '@/lib/feature-model';
-type Store={today:string;prayers:Record<string,Partial<Record<PrayerName,PrayerRecord>>>;todos:Todo[];tasks:Task[];setPrayer:(date:string,name:PrayerName,patch:Partial<PrayerRecord>)=>void;saveTodo:(todo:Todo)=>void;deleteTodo:(id:string)=>void;moveTodo:(id:string,delta:number)=>void;saveTask:(task:Task)=>void;deleteTask:(id:string)=>void};
+import { createContext,useContext,useState,useEffect,useRef,type ReactNode } from 'react';
+import { useSuspenseQuery,useQueryClient } from '@tanstack/react-query';
+import { useServerFn } from '@tanstack/react-start';
+import { dateInTimezone,countPrayers,moveItem,canEditPrayer,type PrayerName,type PrayerRecord,type Todo,type Task } from '@/lib/feature-model';
+import { featureQuery } from '@/lib/feature-queries';
+import { writePrayer,writeTodo,removeTodo,reorderTodos,writeTask,removeTask } from '@/lib/features.functions';
+import { useAuth } from './auth-store';
+type Store={today:string;busy:boolean;prayers:Record<string,Partial<Record<PrayerName,PrayerRecord>>>;todos:Todo[];tasks:Task[];setPrayer:(date:string,name:PrayerName,patch:Partial<PrayerRecord>)=>Promise<boolean>;saveTodo:(todo:Todo)=>Promise<boolean>;deleteTodo:(id:string)=>Promise<boolean>;moveTodo:(id:string,delta:number)=>Promise<boolean>;saveTask:(task:Task)=>Promise<boolean>;deleteTask:(id:string)=>Promise<boolean>};
 const FeatureContext=createContext<Store|null>(null);
 export function FeatureProvider({children}:{children:ReactNode}) {
- const [today,setToday]=useState('');const [prayers,setPrayers]=useState<Store['prayers']>({});const [todos,setTodos]=useState<Todo[]>([]);const [tasks,setTasks]=useState<Task[]>([]);
- useEffect(()=>{const update=()=>setToday(dateKey(new Date()));update();const timer=setInterval(update,30000);return()=>clearInterval(timer);},[]);
- const setPrayer:Store['setPrayer']=(date,name,patch)=>{if(!canEditPrayer(date,today))return;setPrayers(prev=>({...prev,[date]:{...prev[date],[name]:{status:'Pending',note:'',...prev[date]?.[name],...patch}}}));};
- const saveTodo=(todo:Todo)=>setTodos(prev=>prev.some(t=>t.id===todo.id)?prev.map(t=>t.id===todo.id?todo:t):[...prev,todo]);
- const saveTask=(task:Task)=>setTasks(prev=>prev.some(t=>t.id===task.id)?prev.map(t=>t.id===task.id?task:t):[...prev,task]);
- return <FeatureContext.Provider value={{today,prayers,todos,tasks,setPrayer,saveTodo,deleteTodo:id=>setTodos(prev=>prev.filter(t=>t.id!==id)),moveTodo:(id,delta)=>setTodos(prev=>moveItem(prev,id,delta)),saveTask,deleteTask:id=>setTasks(prev=>prev.filter(t=>t.id!==id))}}>{children}</FeatureContext.Provider>;
+ const {user}=useAuth();
+ if(user) return <SavedFeatures userId={user.id}>{children}</SavedFeatures>;
+ const unavailable=async()=>false;
+ return <FeatureContext.Provider value={{today:'',busy:false,prayers:{},todos:[],tasks:[],setPrayer:unavailable,saveTodo:unavailable,deleteTodo:unavailable,moveTodo:unavailable,saveTask:unavailable,deleteTask:unavailable}}>{children}</FeatureContext.Provider>;
+}
+function SavedFeatures({children,userId}:{children:ReactNode;userId:string}) {
+ const queryClient=useQueryClient();const options=featureQuery(userId);const {data}=useSuspenseQuery(options);
+ const [today,setToday]=useState('');const [busy,setBusy]=useState(false);const [error,setError]=useState('');const lock=useRef(false);
+ const prayer=useServerFn(writePrayer),todo=useServerFn(writeTodo),deleteTodo=useServerFn(removeTodo),reorder=useServerFn(reorderTodos),task=useServerFn(writeTask),deleteTask=useServerFn(removeTask);
+ useEffect(()=>{const update=()=>setToday(dateInTimezone(new Date(),data.timezone));update();const timer=setInterval(update,30000);return()=>clearInterval(timer);},[data.timezone]);
+ async function mutate(action:()=>Promise<unknown>){if(lock.current)return false;lock.current=true;setBusy(true);setError('');try{await action();await queryClient.invalidateQueries({queryKey:options.queryKey,refetchType:'none'});await queryClient.fetchQuery(options);return true;}catch{setError('Your change could not be saved. Check your connection and try again.');return false;}finally{lock.current=false;setBusy(false);}}
+ return <FeatureContext.Provider value={{...data,today,busy,setPrayer:(date,name,patch)=>canEditPrayer(date,today)?mutate(()=>prayer({data:{date,name,patch}})):Promise.resolve(false),saveTodo:value=>mutate(()=>todo({data:value})),deleteTodo:id=>mutate(()=>deleteTodo({data:{id}})),moveTodo:(id,delta)=>mutate(()=>reorder({data:{ids:moveItem(data.todos,id,delta).map(t=>t.id)}})),saveTask:value=>mutate(()=>task({data:value})),deleteTask:id=>mutate(()=>deleteTask({data:{id}}))}}>{busy&&<div role="status" className="text-center text-sm text-muted-foreground py-2">Saving…</div>}{error&&<div role="alert" className="text-center text-sm text-destructive py-2">{error}</div>}{children}</FeatureContext.Provider>;
 }
 export function useFeatures(){const value=useContext(FeatureContext);if(!value)throw new Error('FeatureProvider is required');return value;}
 export function usePrayerCount(){const {today,prayers}=useFeatures();return countPrayers(prayers[today]??{});}
