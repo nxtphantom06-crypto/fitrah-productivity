@@ -5,6 +5,7 @@ export type Priority = 'Low'|'Medium'|'High';
 export type Todo = { id: string; title: string; priority: Priority; due: string; time: string; completed: boolean };
 export type Task = { id: string; title: string; description: string; priority: Priority; due: string; category: 'Personal'|'Work'|'Study'; project: string; status: 'Not Started'|'In Progress'|'Completed'; subtasks: {id:string; title:string; completed:boolean}[]; created: string; updated: string };
 export function dateKey(date: Date) { return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`; }
+export function dateInTimezone(date:Date,timezone:string) { const parts=new Intl.DateTimeFormat('en-US',{timeZone:timezone,year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(date);return ['year','month','day'].map(type=>parts.find(p=>p.type===type)?.value??'').join('-'); }
 export function countPrayers(records: Partial<Record<PrayerName,PrayerRecord>>) { return prayerNames.filter(name=>records[name]?.status==='Completed').length; }
 export function canEditPrayer(date:string,today:string) { return !!today && date===today; }
 export function todoMatches(todo:Todo,filter:string,today:string) { if(filter==='Completed')return todo.completed;if(filter==='Today')return !todo.completed&&(!todo.due||todo.due===today);if(filter==='Upcoming')return !todo.completed&&todo.due>today;return true; }

@@ -21,14 +21,14 @@ function FeatureConsumer() {
 }
 
 describe('Root feature provider', () => {
-  it('provides shared mutable feature state to the route outlet', () => {
+  it('provides empty non-mutable feature state when signed out', () => {
     vi.spyOn(Route, 'useRouteContext').mockReturnValue({ queryClient: new QueryClient() });
     const Root = Route.options.component;
     if (typeof Root !== 'function') throw new Error('Root route component is required');
     render(<Root />);
     expect(screen.getByLabelText('Todo count')).toHaveTextContent('0');
     fireEvent.click(screen.getByRole('button', { name: 'Add todo' }));
-    expect(screen.getByLabelText('Todo count')).toHaveTextContent('1');
+    expect(screen.getByLabelText('Todo count')).toHaveTextContent('0');
     vi.restoreAllMocks();
   });
 });

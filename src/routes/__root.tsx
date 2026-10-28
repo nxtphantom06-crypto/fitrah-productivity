@@ -8,7 +8,7 @@ import {
   Scripts,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { Suspense, useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -136,5 +136,5 @@ function RootComponent() {
 
 function AccountFeatures() {
   const { user } = useAuth();
-  return <FeatureProvider key={user?.id ?? 'signed-out'}><ProfilePreviewProvider><Outlet /></ProfilePreviewProvider></FeatureProvider>;
+  return <Suspense fallback={<div role="status" className="min-h-screen grid place-items-center text-muted-foreground">Loading your day…</div>}><FeatureProvider key={user?.id ?? 'signed-out'}><ProfilePreviewProvider><Outlet /></ProfilePreviewProvider></FeatureProvider></Suspense>;
 }
