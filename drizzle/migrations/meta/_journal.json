@@ -29,6 +29,13 @@
       "when": 1793086051012,
       "tag": "0003_fitrah_core_data",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1793162394982,
+      "tag": "0004_tighten_core_grants",
+      "breakpoints": true
     }
   ]
 }
