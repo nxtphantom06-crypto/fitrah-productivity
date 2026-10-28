@@ -13,7 +13,7 @@ import { Plus } from 'lucide-react';
 import { useProfilePreview } from './profile-preview-store';
 export { PrayerCards } from './prayer-tracker';
 export function MonthCalendar() {
- const {prayers:records,today:todayKey}=useFeatures(); const today = useToday(); const [offset, setOffset] = useState(0);
+ const {prayers:records,today:todayKey}=useFeatures(); const today = todayKey?new Date(`${todayKey}T12:00:00`):null; const [offset, setOffset] = useState(0);
  const month = today ? new Date(today.getFullYear(), today.getMonth() + offset, 1) : null;
  const days = month ? new Date(month.getFullYear(), month.getMonth()+1,0).getDate() : 30;
  const blanks = month ? (month.getDay()+6)%7 : 0;
