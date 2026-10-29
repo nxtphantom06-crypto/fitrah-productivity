@@ -40,4 +40,10 @@ Google is enabled and connected; its external account-consent round trip and act
 - [x] Verify automated date/input/save-failure tests, installed policies/grants and signed-out routing.
 - [ ] Verify signed-in reloads, task deep links, reorder and account isolation in the UI — blocked until the user signs in or selects an existing account for testing.
 
-Later phases: real streak calculations, account deletion and notification delivery remain out of scope.
+## Phase 7 — Streaks, analytics & notifications
+- [ ] Replace sample analytics and streak placeholders with account activity and timezone-aware completion history.
+- [ ] Enable owner-only live updates and saved notification preferences.
+- [ ] Connect Firebase web push, device registration and authenticated scheduled reminder delivery.
+- [ ] Test streak rules, analytics, reminder timing, signed-in activity and notification delivery.
+
+Later phases: account deletion and final publication review remain out of scope.
