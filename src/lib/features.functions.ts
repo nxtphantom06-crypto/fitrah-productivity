@@ -5,16 +5,18 @@ import { dateInTimezone, type PrayerName, type PrayerRecord, type Todo, type Tas
 
 export const readFeatures = createServerFn({method:'GET'}).middleware([requireSupabaseAuth]).handler(async ({context})=>{
   const {supabase,userId}=context;
-  const [prayers,todos,tasks,profile]=await Promise.all([
+  const [prayers,todos,tasks,profile,completions,preferences]=await Promise.all([
     supabase.from('prayers').select('*').eq('user_id',userId),
     supabase.from('todos').select('*').eq('user_id',userId).order('position').order('created_at'),
     supabase.from('tasks').select('*, subtasks(*)').eq('user_id',userId).order('created_at',{ascending:false}),
-    supabase.from('profiles').select('timezone').eq('id',userId).single(),
+    supabase.from('profiles').select('timezone,created_at').eq('id',userId).single(),
+    supabase.from('activity_completions').select('day,kind,entity_id').eq('user_id',userId),
+    supabase.from('notification_preferences').select('*').eq('user_id',userId).maybeSingle(),
   ]);
-  if(prayers.error||todos.error||tasks.error||profile.error) throw new Error('Your activity could not be loaded. Please try again.');
+  if(prayers.error||todos.error||tasks.error||profile.error||completions.error||preferences.error) throw new Error('Your activity could not be loaded. Please try again.');
   const records:Record<string,Partial<Record<PrayerName,PrayerRecord>>>={};
   for(const p of prayers.data??[]) { const day=records[p.date]??{}; day[p.name as PrayerName]={status:p.status as PrayerRecord['status'],note:p.note};records[p.date]=day; }
-  return {prayers:records,timezone:profile.data?.timezone??'UTC',todos:(todos.data??[]).map(t=>({id:t.id,title:t.title,priority:t.priority as Todo['priority'],due:t.due??'',time:t.due_time?.slice(0,5)??'',completed:t.completed})),tasks:(tasks.data??[]).map(t=>({id:t.id,title:t.title,description:t.description,priority:t.priority as Task['priority'],due:t.due??'',category:t.category as Task['category'],project:t.project,status:t.status as Task['status'],created:t.created_at,updated:t.updated_at,subtasks:t.subtasks.sort((a,b)=>a.position-b.position).map(s=>({id:s.id,title:s.title,completed:s.completed}))}))};
+  return {completions:completions.data??[],preferences:preferences.data,joined:dateInTimezone(new Date(profile.data?.created_at??new Date()),profile.data?.timezone??'UTC'),prayers:records,timezone:profile.data?.timezone??'UTC',todos:(todos.data??[]).map(t=>({id:t.id,title:t.title,priority:t.priority as Todo['priority'],due:t.due??'',time:t.due_time?.slice(0,5)??'',completed:t.completed})),tasks:(tasks.data??[]).map(t=>({id:t.id,title:t.title,description:t.description,priority:t.priority as Task['priority'],due:t.due??'',category:t.category as Task['category'],project:t.project,status:t.status as Task['status'],created:t.created_at,updated:t.updated_at,subtasks:t.subtasks.sort((a,b)=>a.position-b.position).map(s=>({id:s.id,title:s.title,completed:s.completed}))}))};
 });
 export const writePrayer = createServerFn({method:'POST'}).middleware([requireSupabaseAuth]).inputValidator(input=>prayerSchema.parse(input)).handler(async ({data,context})=>{
   const {supabase,userId}=context;
