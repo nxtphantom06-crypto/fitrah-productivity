@@ -14,6 +14,104 @@ export type Database = {
   }
   public: {
     Tables: {
+      activity_completions: {
+        Row: {
+          completed_at: string
+          day: string
+          entity_id: string
+          id: string
+          kind: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string
+          day: string
+          entity_id: string
+          id?: string
+          kind: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string
+          day?: string
+          entity_id?: string
+          id?: string
+          kind?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      notification_deliveries: {
+        Row: {
+          attempts: number
+          claimed_at: string
+          event_key: string
+          id: string
+          sent_at: string | null
+          state: string
+          subscription_id: string
+          user_id: string
+        }
+        Insert: {
+          attempts?: number
+          claimed_at?: string
+          event_key: string
+          id?: string
+          sent_at?: string | null
+          state?: string
+          subscription_id: string
+          user_id: string
+        }
+        Update: {
+          attempts?: number
+          claimed_at?: string
+          event_key?: string
+          id?: string
+          sent_at?: string | null
+          state?: string
+          subscription_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notification_deliveries_subscription_id_fkey"
+            columns: ["subscription_id"]
+            isOneToOne: false
+            referencedRelation: "push_subscriptions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notification_preferences: {
+        Row: {
+          latitude: number | null
+          longitude: number | null
+          madhab: string
+          method: string
+          settings: Json
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          latitude?: number | null
+          longitude?: number | null
+          madhab?: string
+          method?: string
+          settings?: Json
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          latitude?: number | null
+          longitude?: number | null
+          madhab?: string
+          method?: string
+          settings?: Json
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       prayers: {
         Row: {
           date: string
@@ -71,6 +169,33 @@ export type Database = {
           prayer_language?: string
           setup_complete?: boolean
           timezone?: string
+        }
+        Relationships: []
+      }
+      push_subscriptions: {
+        Row: {
+          created_at: string
+          enabled: boolean
+          id: string
+          last_checked_at: string
+          token: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          last_checked_at?: string
+          token: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          enabled?: boolean
+          id?: string
+          last_checked_at?: string
+          token?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -201,6 +326,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      claim_fitrah_delivery: {
+        Args: { device: string; event: string; owner_id: string }
+        Returns: string
+      }
       reorder_fitrah_todos: { Args: { ids: string[] }; Returns: undefined }
       save_fitrah_task: { Args: { payload: Json }; Returns: string }
     }
