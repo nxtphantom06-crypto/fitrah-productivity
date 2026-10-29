@@ -47,3 +47,8 @@ Google is enabled and connected; its external account-consent round trip and act
 - [ ] Test streak rules, analytics, reminder timing, signed-in activity and notification delivery.
 
 Later phases: account deletion and final publication review remain out of scope.
+## Phase 8 — Review & verification
+- [ ] Audit owner access, server authorization and notification device privacy.
+- [ ] Review performance, route metadata, mobile layouts and PWA compliance.
+- [ ] Verify signed-in core features, analytics/streaks and error handling; fix regressions.
+- [ ] Record remaining external delivery/publication limitations.
