@@ -26,7 +26,10 @@ jobs:
 
       - name: Build web app
         run: npm run build
-
+      - name: Show build output
+        run: |
+          ls -la dist || echo "no dist folder"
+          find . -name index.html -not -path "./node_modules/*" -not -path "./android/*"
       - name: Add Android and generate icons
         run: |
           npx cap add android
