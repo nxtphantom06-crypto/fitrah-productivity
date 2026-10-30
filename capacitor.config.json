@@ -1,0 +1,6 @@
+{
+  "appId": "com.fitrah.app",
+  "appName": "Fitrah",
+  "webDir": "dist",
+  "android": { "allowMixedContent": false }
+}
