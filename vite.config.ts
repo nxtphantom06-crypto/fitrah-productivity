@@ -31,8 +31,8 @@ const pwa = VitePWA({
 
 export default defineConfig({
   vite: {
-    // The packaged app ships every file locally, so it needs no offline service worker.
-    plugins: nativeBuild ? [] : [pwa],
+    // Kept in the native build too; the guarded registrar never registers it on localhost.
+    plugins: [pwa],
   },
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
