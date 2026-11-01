@@ -27,21 +27,8 @@ jobs:
           npm install --legacy-peer-deps
           npm install --legacy-peer-deps @capacitor/core@6 @capacitor/android@6 @capacitor/cli@6 @capacitor/assets@3
 
-      - name: Build web app
-        run: npm run build
-
-      - name: Find web build folder
-        run: |
-          echo "--- top level ---"
-          ls -la
-          echo "--- dist ---"
-          ls -la dist || echo "no dist folder"
-          DIR=$(find . -mindepth 2 -name index.html -not -path "./node_modules/*" -not -path "./android/*" -not -path "./.git/*" -not -path "./public/*" | head -1 | xargs -r dirname)
-          echo "Found web folder: $DIR"
-          if [ -n "$DIR" ]; then
-            sed -i "s#\"webDir\": \"dist\"#\"webDir\": \"$DIR\"#" capacitor.config.json
-          fi
-          cat capacitor.config.json
+      - name: Build static app for Capacitor
+        run: npm run build:native
 
       - name: Add Android and generate icons
         run: |
