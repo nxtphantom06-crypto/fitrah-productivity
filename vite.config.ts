@@ -34,6 +34,11 @@ export default defineConfig({
     // Kept in the native build too; the guarded registrar never registers it on localhost.
     plugins: [pwa],
   },
+  // Outside Lovable (e.g. GitHub Actions) nitro defaults to .output/public; pin the native
+  // build's static output to dist/client so Capacitor's webDir gets index.html + assets.
+  ...(nativeBuild
+    ? { nitro: { output: { dir: "dist", publicDir: "dist/client", serverDir: "dist/server" } } }
+    : {}),
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
