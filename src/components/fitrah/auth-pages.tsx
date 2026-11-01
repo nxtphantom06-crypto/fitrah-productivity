@@ -12,6 +12,7 @@ import { useAuth } from './auth-store';
 import { AuthEntry } from './auth-entry';
 import { safeReturnPath, signupHasSession } from '@/lib/auth-flow';
 import { useProfilePreview } from './profile-preview-store';
+import { publicAppOrigin } from '@/lib/native/client';
 export function AuthLayout({children}: {children: ReactNode}) { return <main className="auth-layout"><aside className="auth-image"><img src={courtyard} width={1536} height={768} alt="Quiet sunlit mosque courtyard"/><div className="auth-image-copy"><StarMark/><h2>Rooted in faith.<br/>Moved by purpose.</h2><p>A little consistency. A more meaningful everyday.</p></div></aside><div className="auth-panel"><Link to="/dashboard" className="brand auth-brand" aria-label="Fitrah home"><StarMark/><div><div className="brand-name">fitrah<span className="text-gold">.</span></div><div className="brand-subtitle">ALIGN YOUR DAY WITH PURPOSE</div></div></Link><div className="auth-content">{children}</div><div className="auth-footnote">Faith and intention, woven into your everyday.</div></div></main>; }
 export function SplashPage() { return <AuthEntry/>; }
 const slides=[{icon:Moon,title:'Five moments. One purpose.',text:'Make your daily prayers the anchors of your day.',label:'Track your prayers'},{icon:CheckSquare,title:'Intention into action.',text:'Create space for your tasks, and what matters most.',label:'Manage your tasks'},{icon:Flame,title:'Small steps. Lasting change.',text:'Build consistency, one purposeful day at a time.',label:'Build your streaks'}] as const;
@@ -27,8 +28,8 @@ export function AuthPage({mode}: {mode:'signup'|'login'|'forgot'}) {
  setBusy(true);
  try {
  const destination=safeReturnPath(new URLSearchParams(window.location.search).get('redirect'));sessionStorage.setItem('fitrah-return',destination);
- if(signup){const {data,error}=await supabase.auth.signUp({email:values.email.trim(),password:values.password,options:{data:{full_name:values.name.trim()},emailRedirectTo:window.location.origin}});if(error)throw error;if(signupHasSession(data.session))await navigate({to:'/setup'});else setNotice('Check your email to confirm your account, then return to log in.');}
- else if(forgot){const {error}=await supabase.auth.resetPasswordForEmail(values.email.trim(),{redirectTo:window.location.origin+'/reset-password'});if(error)throw error;setNotice('If an account exists for this email, a password reset link has been sent.');}
+ if(signup){const {data,error}=await supabase.auth.signUp({email:values.email.trim(),password:values.password,options:{data:{full_name:values.name.trim()},emailRedirectTo:publicAppOrigin()}});if(error)throw error;if(signupHasSession(data.session))await navigate({to:'/setup'});else setNotice('Check your email to confirm your account, then return to log in.');}
+ else if(forgot){const {error}=await supabase.auth.resetPasswordForEmail(values.email.trim(),{redirectTo:publicAppOrigin()+'/reset-password'});if(error)throw error;setNotice('If an account exists for this email, a password reset link has been sent.');}
  else {const {error}=await supabase.auth.signInWithPassword({email:values.email.trim(),password:values.password});if(error)throw error;await navigate({to:'/',replace:true});}
  }catch(error){setErrors({form:error instanceof Error?error.message:'Unable to complete this request. Please try again.'});}finally{setBusy(false);}
  }

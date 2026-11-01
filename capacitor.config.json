@@ -1,6 +1,6 @@
 {
   "appId": "com.fitrah.app",
   "appName": "Fitrah",
-  "webDir": "dist",
+  "webDir": "dist/client",
   "android": { "allowMixedContent": false }
 }

@@ -19,3 +19,4 @@
 - Keep analytics in a labelled sample-data module and reminder drafts in memory until their data phase; saved account profiles use owner-scoped Cloud access and private avatar storage.
 - Keep signed-in screens under the managed client-only authenticated layout, with a single root auth subscription and identity-keyed feature state; sign-out clears cached and temporary private state before replacing navigation with login.
 - Register offline support only through the guarded client module; generate the service worker with vite-plugin-pwa into dist/client, never register in preview/dev, and use NetworkFirst for navigation.
+- The Capacitor app is a separate static SPA build (`npm run build:native` → dist/client/index.html) that calls the hosted site's server functions via an allowlisted native-origin CORS/CSRF rule; the normal `vite build` stays SSR so the published site is unchanged.
