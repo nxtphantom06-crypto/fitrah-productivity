@@ -9,7 +9,7 @@ import { VitePWA } from "vite-plugin-pwa";
 
 // `npm run build:native` sets this to produce a static single-page app (dist/client/index.html)
 // for Capacitor. The normal `vite build` used for the published site is unchanged.
-const nativeBuild = process.env.VITE_FITRAH_NATIVE === "true";
+const nativeBuild = process.env['VITE_FITRAH_NATIVE'] === "true";
 
 const pwa = VitePWA({
   strategies: "generateSW",
