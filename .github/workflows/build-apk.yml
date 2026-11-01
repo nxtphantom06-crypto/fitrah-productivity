@@ -29,7 +29,16 @@ jobs:
 
       - name: Build static app for Capacitor
         run: npm run build:native
-
+      - name: Fix static output
+        run: |
+          echo "--- built files ---"
+          find dist -not -path "*/assets/*" | head -60
+          if [ ! -f dist/client/index.html ]; then
+            F=$(find dist -name "*.html" | head -1)
+            echo "Found html file: $F"
+            if [ -n "$F" ]; then cp "$F" dist/client/index.html; fi
+          fi
+          ls -la dist/client
       - name: Add Android and generate icons
         run: |
           npx cap add android
