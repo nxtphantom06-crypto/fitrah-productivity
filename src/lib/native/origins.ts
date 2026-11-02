@@ -3,6 +3,9 @@
 export const NATIVE_APP_ORIGINS = ['https://localhost', 'capacitor://localhost'] as const;
 export const DEFAULT_NATIVE_SERVER_ORIGIN = 'https://fitrah-productivity.lovable.app';
 
+/** Response headers the server-function client must read; cross-origin JS can't see them unless exposed. */
+export const SERVER_FN_RESPONSE_HEADERS = ['x-tss-serialized', 'x-tss-raw', 'x-tss-context', 'content-type'] as const;
+
 export function isNativeAppOrigin(origin: string | null | undefined): boolean {
  return !!origin && (NATIVE_APP_ORIGINS as readonly string[]).includes(origin);
 }
@@ -19,6 +22,7 @@ export function nativeCorsHeaders(origin: string, requestedHeaders: string | nul
   'Access-Control-Allow-Origin': origin,
   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
   'Access-Control-Allow-Headers': requestedHeaders?.trim() || 'authorization, content-type, accept, x-tsr-serverfn',
+  'Access-Control-Expose-Headers': SERVER_FN_RESPONSE_HEADERS.join(', '),
   'Access-Control-Max-Age': '600',
   Vary: 'Origin',
  };
