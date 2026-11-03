@@ -1,9 +1,12 @@
 import { createServerFn } from '@tanstack/react-start';
 import { requireSupabaseAuth } from '@/integrations/supabase/auth-middleware';
 import { todoSchema, taskSchema, prayerSchema, idSchema, orderSchema } from './feature-schemas';
+import { normalizePreferences } from './reminder-model';
+import { shiftDay } from './activity-analytics';
+import type { FeatureData } from './sync-model';
 import { dateInTimezone, type PrayerName, type PrayerRecord, type Todo, type Task } from './feature-model';
 
-export const readFeatures = createServerFn({method:'GET'}).middleware([requireSupabaseAuth]).handler(async ({context})=>{
+export const readFeatures = createServerFn({method:'GET'}).middleware([requireSupabaseAuth]).handler(async ({context}):Promise<FeatureData>=>{
   const {supabase,userId}=context;
   const [prayers,todos,tasks,profile,completions,preferences]=await Promise.all([
     supabase.from('prayers').select('*').eq('user_id',userId),
@@ -16,12 +19,16 @@ export const readFeatures = createServerFn({method:'GET'}).middleware([requireSu
   if(prayers.error||todos.error||tasks.error||profile.error||completions.error||preferences.error) throw new Error('Your activity could not be loaded. Please try again.');
   const records:Record<string,Partial<Record<PrayerName,PrayerRecord>>>={};
   for(const p of prayers.data??[]) { const day=records[p.date]??{}; day[p.name as PrayerName]={status:p.status as PrayerRecord['status'],note:p.note};records[p.date]=day; }
-  return {completions:completions.data??[],preferences:preferences.data,joined:dateInTimezone(new Date(profile.data?.created_at??new Date()),profile.data?.timezone??'UTC'),prayers:records,timezone:profile.data?.timezone??'UTC',todos:(todos.data??[]).map(t=>({id:t.id,title:t.title,priority:t.priority as Todo['priority'],due:t.due??'',time:t.due_time?.slice(0,5)??'',completed:t.completed})),tasks:(tasks.data??[]).map(t=>({id:t.id,title:t.title,description:t.description,priority:t.priority as Task['priority'],due:t.due??'',category:t.category as Task['category'],project:t.project,status:t.status as Task['status'],created:t.created_at,updated:t.updated_at,subtasks:t.subtasks.sort((a,b)=>a.position-b.position).map(s=>({id:s.id,title:s.title,completed:s.completed}))}))};
+  return {completions:completions.data??[],preferences:normalizePreferences(preferences.data),joined:dateInTimezone(new Date(profile.data?.created_at??new Date()),profile.data?.timezone??'UTC'),prayers:records,timezone:profile.data?.timezone??'UTC',todos:(todos.data??[]).map(t=>({id:t.id,title:t.title,priority:t.priority as Todo['priority'],due:t.due??'',time:t.due_time?.slice(0,5)??'',completed:t.completed})),tasks:(tasks.data??[]).map(t=>({id:t.id,title:t.title,description:t.description,priority:t.priority as Task['priority'],due:t.due??'',category:t.category as Task['category'],project:t.project,status:t.status as Task['status'],created:t.created_at,updated:t.updated_at,subtasks:t.subtasks.sort((a,b)=>a.position-b.position).map(s=>({id:s.id,title:s.title,completed:s.completed}))}))};
 });
+/** How many past days of prayers an offline phone may still sync. */
+export const PRAYER_SYNC_DAYS=7;
 export const writePrayer = createServerFn({method:'POST'}).middleware([requireSupabaseAuth]).inputValidator(input=>prayerSchema.parse(input)).handler(async ({data,context})=>{
   const {supabase,userId}=context;
   const profile=await supabase.from('profiles').select('timezone').eq('id',userId).single();
-  if(profile.error||data.date!==dateInTimezone(new Date(),profile.data.timezone)) throw new Error('Only today’s prayers can be changed.');
+  // Today on the website; the phone app may also send changes it saved offline during the past week.
+  const today=profile.error?'':dateInTimezone(new Date(),profile.data.timezone);
+  if(!today||data.date>today||data.date<shiftDay(today,-PRAYER_SYNC_DAYS)) throw new Error('Only today’s prayers can be changed.');
   const existing=await supabase.from('prayers').select('id').eq('user_id',userId).eq('date',data.date).eq('name',data.name).maybeSingle();
   if(existing.error)throw new Error('Your prayer could not be saved.');
   const patch:Partial<PrayerRecord>={};

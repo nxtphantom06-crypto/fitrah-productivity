@@ -52,3 +52,11 @@ Later phases: account deletion and final publication review remain out of scope.
 - [ ] Review performance, route metadata, mobile layouts and PWA compliance.
 - [ ] Verify signed-in core features, analytics/streaks and error handling; fix regressions.
 - [ ] Record remaining external delivery/publication limitations.
+## Android app (Capacitor) — fixes
+- [ ] Data after login: native server-function responses readable (CORS exposed headers) — verify + publish.
+- [ ] Google sign-in in the Android app via system browser + deep link back.
+- [ ] Icon and splash (Android 12+, #0F766E) applied by the GitHub workflow.
+- [ ] Local-first offline: on-device copy of activity, profile and reminder settings; offline change queue that syncs on reconnect; offline sign-in kept; offline indicator.
+- [ ] On-device reminders with @capacitor/local-notifications (prayer offsets, daily task, end-of-day, milestones) + Android 13 permission; saved reminder settings.
+- [ ] Native look: status bar, safe areas, no browser look, Android back button.
+- [ ] Tests, native build check (dist/client/index.html), publish, GitHub/Firebase instructions.
