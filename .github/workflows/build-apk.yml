@@ -42,7 +42,8 @@ jobs:
       - name: Add Android and generate icons
         run: |
           npx cap add android
-          npx capacitor-assets generate --android
+          npx capacitor-assets generate --android --iconBackgroundColor '#0F766E' --iconBackgroundColorDark '#0F766E' --splashBackgroundColor '#0F766E' --splashBackgroundColorDark '#0B4F49'
+          node scripts/android-setup.mjs
           npx cap sync android
 
       - name: Build APK
