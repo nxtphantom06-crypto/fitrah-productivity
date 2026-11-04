@@ -5,6 +5,16 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './auth-store';
 import { StarMark } from './foundation';
 import { safeReturnPath } from '@/lib/auth-flow';
+import { isNativeBuild } from '@/lib/native/client';
+import { loadLocal } from '@/lib/native/offline';
+
+/** Whether setup is done: asks the backend, or (phone app, offline) the copy saved on the phone. */
+async function setupComplete(userId: string): Promise<boolean | null> {
+  const { data, error } = await supabase.from('profiles').select('setup_complete').eq('id', userId).single();
+  if (!error) return data.setup_complete;
+  if (isNativeBuild) { const cached = await loadLocal<{ setup_complete?: boolean }>('profile', userId); if (cached) return !!cached.setup_complete; }
+  return null;
+}
 
 export function AuthEntry() {
   const { user, ready } = useAuth(); const navigate = useNavigate();
@@ -14,11 +24,11 @@ export function AuthEntry() {
     if (!user) { void navigate({ to: '/onboarding', replace: true }); return; }
     let active = true;
     const destination = safeReturnPath(sessionStorage.getItem('fitrah-return'));
-    void supabase.from('profiles').select('setup_complete').eq('id',user.id).single().then(({ data, error }) => {
+    void setupComplete(user.id).catch(() => null).then(done => {
       if (!active) return;
-      if (error) { void navigate({ to: '/setup', replace: true }); return; }
+      if (done === null) { void navigate({ to: '/setup', replace: true }); return; }
       sessionStorage.removeItem('fitrah-return');
-      void navigate({ to: data.setup_complete ? destination : '/setup', replace: true });
+      void navigate({ to: done ? destination : '/setup', replace: true });
     });
     return () => { active = false; };
   }, [user,ready,navigate]);
