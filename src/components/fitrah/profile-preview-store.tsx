@@ -72,7 +72,7 @@ export function ProfilePreviewProvider({ children }: { children: ReactNode }) {
         const { error } = await supabase.storage.from('avatars').upload(avatarPath, photo, { contentType: photo.type });
         if (error) throw error;
       }
-      const { error } = await supabase.from('profiles').update({ ...row, avatar_path: avatarPath }).eq('id', user.id);
+      const { error } = await supabase.from('profiles').update({ full_name: row.full_name, timezone: row.timezone, prayer_language: language, setup_complete: true, avatar_path: avatarPath }).eq('id', user.id);
       if (error) throw error;
       if (isNativeBuild) { await saveLocal('profile', user.id, row); if (photo) await saveLocal('avatar', user.id, photo); }
       setProfileState(next);
