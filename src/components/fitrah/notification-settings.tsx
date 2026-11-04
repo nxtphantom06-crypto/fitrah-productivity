@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import { Link } from '@tanstack/react-router';
 import { ArrowLeft, Bell, LocateFixed, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -54,7 +54,7 @@ export function NotificationSettingsPage() {
   catch { setNotice('Your location could not be found. Allow location for Fitrah, or enter it below.'); }
   finally { setLocating(false); }
  }
- async function submit(e: React.FormEvent) {
+ async function submit(e: FormEvent) {
   e.preventDefault(); setNotice('');
   const saved = await savePreferences(draft);
   if (!saved) { setNotice('Your reminder preferences could not be saved. Please try again.'); return; }
