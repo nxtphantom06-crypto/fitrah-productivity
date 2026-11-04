@@ -67,9 +67,10 @@ export function ProfilePreviewProvider({ children }: { children: ReactNode }) {
       let avatarPath = existing?.avatar_path ?? '';
       let photo: Blob | null = null;
       if (newPhoto) {
-        photo = await fetch(next.avatar).then(r => r.blob());
+        const blob = await fetch(next.avatar).then(r => r.blob());
+        photo = blob;
         avatarPath = `${user.id}/avatar-${crypto.randomUUID()}`;
-        const { error } = await supabase.storage.from('avatars').upload(avatarPath, photo, { contentType: photo.type });
+        const { error } = await supabase.storage.from('avatars').upload(avatarPath, blob, { contentType: blob.type });
         if (error) throw error;
       }
       const { error } = await supabase.from('profiles').update({ full_name: row.full_name, timezone: row.timezone, prayer_language: language, setup_complete: true, avatar_path: avatarPath }).eq('id', user.id);
