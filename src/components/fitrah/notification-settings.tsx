@@ -48,7 +48,7 @@ export function NotificationSettingsPage() {
  const update = (name: typeof prayerNames[number], patch: Partial<Reminder>) => setSettings({ prayers: { ...settings.prayers, [name]: { ...settings.prayers[name], ...patch } } });
  const times = today ? prayerTimesFor(draft, today) : null;
  const fmt = (d: Date) => d.toLocaleTimeString('en', { hour: 'numeric', minute: '2-digit', timeZone: timezone });
- async function useLocation() {
+ async function findLocation() {
   setLocating(true); setNotice('');
   try { const { latitude, longitude } = await locate(); setDraft({ ...draft, latitude: round(latitude), longitude: round(longitude) }); }
   catch { setNotice('Your location could not be found. Allow location for Fitrah, or enter it below.'); }
@@ -73,7 +73,7 @@ export function NotificationSettingsPage() {
    <section className="settings-section mt-0">
     <h2 className="settings-heading">Prayer times</h2>
     <p className="text-sm text-muted-foreground mb-4">Prayer times are calculated on your phone from your location.</p>
-    <Button type="button" variant="secondary" onClick={() => void useLocation()} loading={locating} disabled={locating}><LocateFixed/>Use my location</Button>
+    <Button type="button" variant="secondary" onClick={() => void findLocation()} loading={locating} disabled={locating}><LocateFixed/>Use my location</Button>
     <div className="grid grid-cols-2 gap-3 mt-4">
      <div><label htmlFor="latitude">Latitude</label><Input id="latitude" type="number" step="0.001" min={-90} max={90} value={draft.latitude ?? ''} onChange={e => setDraft({ ...draft, latitude: e.target.value === '' ? null : Number(e.target.value) })}/></div>
      <div><label htmlFor="longitude">Longitude</label><Input id="longitude" type="number" step="0.001" min={-180} max={180} value={draft.longitude ?? ''} onChange={e => setDraft({ ...draft, longitude: e.target.value === '' ? null : Number(e.target.value) })}/></div>
