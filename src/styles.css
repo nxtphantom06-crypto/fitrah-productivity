@@ -469,3 +469,4 @@ html.native-app .auth-panel, html.native-app .splash-screen { padding-top:max(28
 html.native-app .page-container { padding-left:max(20px,env(safe-area-inset-left)); padding-right:max(20px,env(safe-area-inset-right)); }
 html.native-app .feature-fab { bottom:calc(86px + env(safe-area-inset-bottom)); }
 html.native-app img { -webkit-user-drag:none; }
+html.native-app .header-inner { min-height:72px; }
