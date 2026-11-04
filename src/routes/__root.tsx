@@ -18,6 +18,7 @@ import { ProfilePreviewProvider } from "@/components/fitrah/profile-preview-stor
 import { FitrahNotFound } from "@/components/fitrah/feedback-pages";
 import { AuthProvider } from "@/components/fitrah/auth-store";
 import { useAuth } from "@/components/fitrah/auth-store";
+import { isNativeBuild } from "@/lib/native/client";
 
 function NotFoundComponent() {
   return (
@@ -83,7 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: isNativeBuild ? "width=device-width, initial-scale=1, viewport-fit=cover" : "width=device-width, initial-scale=1" },
       { title: "Fitrah · Align your day with purpose" },
       { name: "description", content: "Faith and intention, woven into your everyday." },
       { name: "theme-color", content: "#1A6B5A" },
@@ -111,7 +112,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={isNativeBuild ? "native-app" : undefined}>
       <head>
         <HeadContent />
       </head>
@@ -125,6 +126,9 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+  // Phone app: status bar, back button, deep links and notification taps.
+  useEffect(() => { if (isNativeBuild) void import("@/lib/native/shell").then(m => m.initNativeShell(router)); }, [router]);
 
   return (
     <QueryClientProvider client={queryClient}>

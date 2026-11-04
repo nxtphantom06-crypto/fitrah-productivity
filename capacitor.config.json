@@ -2,5 +2,10 @@
   "appId": "com.fitrah.app",
   "appName": "Fitrah",
   "webDir": "dist/client",
-  "android": { "allowMixedContent": false }
+  "android": { "allowMixedContent": false, "backgroundColor": "#FAFAF7" },
+  "plugins": {
+    "SplashScreen": { "launchShowDuration": 3000, "launchAutoHide": true, "backgroundColor": "#0F766E", "androidScaleType": "CENTER_CROP", "showSpinner": false, "splashFullScreen": false, "splashImmersive": false },
+    "StatusBar": { "overlaysWebView": false, "style": "LIGHT", "backgroundColor": "#FAFAF7" },
+    "LocalNotifications": { "smallIcon": "ic_stat_fitrah", "iconColor": "#0F766E" }
+  }
 }

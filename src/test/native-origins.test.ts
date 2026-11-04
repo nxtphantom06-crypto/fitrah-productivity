@@ -17,3 +17,9 @@ describe('Packaged app access to the hosted site', () => {
   expect(nativeCorsHeaders('https://localhost', null)['Access-Control-Allow-Origin']).toBe('https://localhost');
  });
 });
+describe('Server answers readable by the packaged app', () => {
+ it('exposes the headers the app needs to read server results', () => {
+  const exposed = nativeCorsHeaders('https://localhost', null)['Access-Control-Expose-Headers'];
+  for (const header of ['x-tss-serialized', 'x-tss-raw', 'content-type']) expect(exposed).toContain(header);
+ });
+});

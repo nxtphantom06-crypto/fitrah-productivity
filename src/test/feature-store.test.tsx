@@ -5,6 +5,7 @@ import {FeatureProvider,useFeatures} from '@/components/fitrah/feature-store';
 const mocks=vi.hoisted(()=>({read:vi.fn(),write:vi.fn()}));
 vi.mock('@/components/fitrah/auth-store',()=>({useAuth:()=>({user:{id:'owner'}})}));
 vi.mock('@tanstack/react-start',()=>({useServerFn:(fn:unknown)=>fn}));
+vi.mock('@/lib/notifications.functions',()=>({savePreferences:vi.fn()}));
 vi.mock('@/lib/features.functions',()=>({readFeatures:mocks.read,writeTodo:mocks.write,writePrayer:vi.fn(),removeTodo:vi.fn(),reorderTodos:vi.fn(),writeTask:vi.fn(),removeTask:vi.fn()}));
 const empty={prayers:{},todos:[],tasks:[],timezone:'Asia/Kolkata'};
 const todo={id:'9eec8d4e-b6fc-4bfb-8daf-7bdd363fe6a5',title:'Read',priority:'Medium' as const,due:'',time:'',completed:false};
