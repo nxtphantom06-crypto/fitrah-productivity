@@ -16,7 +16,7 @@ import { publicAppOrigin, isNativeBuild } from '@/lib/native/client';
 import { startNativeGoogleSignIn } from '@/lib/native/google';
 import { NATIVE_AUTH_ERROR_EVENT } from '@/lib/native/auth-callback';
 import { OFFLINE_ACTION_MESSAGE } from '@/lib/native/offline';
-import { enableReminders } from './reminder-permission';
+import { enableReminders } from '@/lib/reminder-permission';
 export function AuthLayout({children}: {children: ReactNode}) { return <main className="auth-layout"><aside className="auth-image"><img src={courtyard} width={1536} height={768} alt="Quiet sunlit mosque courtyard"/><div className="auth-image-copy"><StarMark/><h2>Rooted in faith.<br/>Moved by purpose.</h2><p>A little consistency. A more meaningful everyday.</p></div></aside><div className="auth-panel"><Link to="/dashboard" className="brand auth-brand" aria-label="Fitrah home"><StarMark/><div><div className="brand-name">fitrah<span className="text-gold">.</span></div><div className="brand-subtitle">ALIGN YOUR DAY WITH PURPOSE</div></div></Link><div className="auth-content">{children}</div><div className="auth-footnote">Faith and intention, woven into your everyday.</div></div></main>; }
 export function SplashPage() { return <AuthEntry/>; }
 const slides=[{icon:Moon,title:'Five moments. One purpose.',text:'Make your daily prayers the anchors of your day.',label:'Track your prayers'},{icon:CheckSquare,title:'Intention into action.',text:'Create space for your tasks, and what matters most.',label:'Manage your tasks'},{icon:Flame,title:'Small steps. Lasting change.',text:'Build consistency, one purposeful day at a time.',label:'Build your streaks'}] as const;
