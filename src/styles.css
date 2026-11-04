@@ -453,3 +453,19 @@ progress::-moz-progress-bar { background:var(--primary); }
  .missing-content { padding:32px 24px; }
  .missing-content h1 { font-size:32px; }
 }
+
+/* Offline / sync indicator (phone app) */
+.sync-pill { position:fixed; top:calc(env(safe-area-inset-top) + 8px); left:50%; transform:translateX(-50%); z-index:60; display:flex; align-items:center; gap:6px; padding:6px 12px; border-radius:999px; font-size:11px; font-weight:500; background:var(--card); color:var(--muted-foreground); border:1px solid var(--border); box-shadow:var(--shadow-soft); white-space:nowrap; max-width:calc(100vw - 24px); overflow:hidden; text-overflow:ellipsis; }
+.sync-pill.offline { background:var(--foreground); color:var(--background); border-color:transparent; }
+.sync-pill.rejected { top:calc(env(safe-area-inset-top) + 44px); color:var(--destructive); cursor:pointer; }
+
+/* Native app feel (Capacitor build only) */
+html.native-app { -webkit-tap-highlight-color:transparent; overscroll-behavior:none; }
+html.native-app body { -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; overscroll-behavior:none; }
+html.native-app input, html.native-app textarea, html.native-app [contenteditable="true"] { -webkit-user-select:text; user-select:text; }
+html.native-app ::-webkit-scrollbar { display:none; }
+html.native-app .app-header { padding-top:env(safe-area-inset-top); height:auto; min-height:72px; }
+html.native-app .auth-panel, html.native-app .splash-screen { padding-top:max(28px,env(safe-area-inset-top)); }
+html.native-app .page-container { padding-left:max(20px,env(safe-area-inset-left)); padding-right:max(20px,env(safe-area-inset-right)); }
+html.native-app .feature-fab { bottom:calc(86px + env(safe-area-inset-bottom)); }
+html.native-app img { -webkit-user-drag:none; }
