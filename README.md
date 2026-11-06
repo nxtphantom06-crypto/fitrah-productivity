@@ -1,14 +1,10 @@
-# Fitrah Productivity
 
-I want your help to build a mobile app. I'll provide the PRD and implementation plan in your knowledge base soon. Right now, do NOT generate any code, files, or create any project. Please wait for my next instructions. Are you ready?
-
-This project was built with [Lovable](https://lovable.dev).
 
 **Live app**: https://fitrah-productivity.lovable.app
 
-## Build with Lovable
+## Build
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/c7813d08-7f5c-46fc-8cc0-258f3d703728).
+Continue developing this project editor
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
 - **Stay in sync**: every change made in Lovable is committed straight to this repository.
@@ -23,4 +19,6 @@ git clone <this-repository-url>
 cd <repository-name>
 npm i
 npm run dev
+
+devoloper by @mohsinnn16
 ```
