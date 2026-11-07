@@ -6,9 +6,9 @@
 
 Continue developing this project editor
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+- **Ship faster**: describe what you want to build and write the code.
+- **Stay in sync**: every change made in VS CODE is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub, ready for your next project.
 
 ## Development
 
@@ -20,5 +20,5 @@ cd <repository-name>
 npm i
 npm run dev
 
-devoloper by @mohsinnn16
+devoloped by @mohsinnn16
 ```
