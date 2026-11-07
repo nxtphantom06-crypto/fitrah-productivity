@@ -41,6 +41,68 @@ export type Database = {
         }
         Relationships: []
       }
+      habit_completions: {
+        Row: {
+          day: string
+          habit_id: string
+          user_id: string
+        }
+        Insert: {
+          day: string
+          habit_id: string
+          user_id: string
+        }
+        Update: {
+          day?: string
+          habit_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "habit_completions_habit_id_user_id_fkey"
+            columns: ["habit_id", "user_id"]
+            isOneToOne: false
+            referencedRelation: "habits"
+            referencedColumns: ["id", "user_id"]
+          },
+        ]
+      }
+      habits: {
+        Row: {
+          archived_day: string | null
+          icon: string
+          id: string
+          name: string
+          reminder_time: string
+          repeat_days: number[]
+          start_day: string
+          user_id: string
+          versions: Json
+        }
+        Insert: {
+          archived_day?: string | null
+          icon?: string
+          id?: string
+          name: string
+          reminder_time?: string
+          repeat_days?: number[]
+          start_day: string
+          user_id: string
+          versions?: Json
+        }
+        Update: {
+          archived_day?: string | null
+          icon?: string
+          id?: string
+          name?: string
+          reminder_time?: string
+          repeat_days?: number[]
+          start_day?: string
+          user_id?: string
+          versions?: Json
+        }
+        Relationships: []
+      }
       notification_deliveries: {
         Row: {
           attempts: number
