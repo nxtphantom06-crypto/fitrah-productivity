@@ -1,5 +1,11 @@
 # Phase 1 — Project foundation & UI shell
 
+## Daily habits
+- [ ] Private habits/history storage and validated seven-day corrections.
+- [ ] Daily/To-do tabs, editor, archive/delete confirmation, calendar and streaks.
+- [ ] Local-first syncing, on-device habit reminders and milestone integration.
+- [ ] Automated tests and signed-in flow verification.
+
 - [x] Establish Fitrah theme, reusable primitives and visual identity.
 - [x] Build mobile navigation and five navigable shell screens; open dashboard at /.
 - [x] Configure guarded PWA support, icons and metadata.
